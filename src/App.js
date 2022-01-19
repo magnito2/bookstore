@@ -14,6 +14,7 @@ import './default.scss';
 import Registration from "./pages/Registration";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
+import Recovery from "./pages/Recovery";
 
 const initialState = {
   currentUser: null
@@ -77,6 +78,13 @@ class App extends Component {
               : 
               (<MainLayout currentUser={ currentUser }>
                 <Login />
+              </MainLayout>)
+            } />
+            <Route path="/recovery" element={
+              currentUser ? <Navigate to="/" />
+              : 
+              (<MainLayout currentUser={ currentUser }>
+                <Recovery />
               </MainLayout>)
             } />
           </Routes>
