@@ -1,10 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../../firebase/utils";
 import './styles.scss';
 
 import Logo from '../../assets/Logo.png'
 
 const Header = props => {
+
+    const { currentUser } = props;
     return (
         <header className="header">
             <div className="wrap">
@@ -16,7 +19,18 @@ const Header = props => {
             </div>
 
             <div className="callToActions">
-                <ul>
+                {currentUser && (
+                    <ul>
+                        <li>
+                            <span onClick={() => auth.signOut()}>
+                                Logout
+                            </span>
+                        </li>
+                    </ul>
+                )}
+
+                {!currentUser && (
+                    <ul>
                     <li>
                         <Link to="/registration">
                             Register
@@ -28,10 +42,15 @@ const Header = props => {
                         </Link>
                     </li>
                 </ul>
+                )}
             </div>
 
         </header>
     );
 };
+
+Header.defaultProps = {
+    currentUser: null 
+}
 
 export default Header;

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { onSnapshot, doc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 //layouts
 import MainLayout from "./layouts/MainLayout";
 import HomepageLayout from "./layouts/HomepageLayout";
 
 
-import { auth } from "./firebase/utils"
+import { auth, handleUserProfile, firestore} from "./firebase/utils";
 import './default.scss';
 
 import Registration from "./pages/Registration";
@@ -28,17 +30,28 @@ class App extends Component {
   authListener = null;
 
   componentDidMount(){
-    this.authListener = auth.onAuthStateChanged(userAuth => {
-      if(!userAuth) return;
+    onAuthStateChanged(auth, async userAuth => {
+      if(userAuth){
+        const userRef = await handleUserProfile(userAuth);
 
-      this.setState({
-        currentUser: userAuth
-      });
+        this.authListener = onSnapshot(userRef, snapshot => {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data()
+            }
+          })
+        });
+      } else {
+        this.setState({
+          ...initialState
+        })
+      }
     });
   }
 
   componentWillUnmount(){
-    this.authListener();
+    this.authListener && this.authListener();
   }
 
   render(){
@@ -48,19 +61,23 @@ class App extends Component {
       <div className="App">
           <Routes>
             <Route path="/" element={
-              <HomepageLayout>
+              <HomepageLayout currentUser={ currentUser }>
                 <Homepage />
               </HomepageLayout>
             } />
             <Route path="/registration" element={
-            <MainLayout>
-              <Registration />
-            </MainLayout>
+              currentUser ? <Navigate to="/" />
+              :
+              <MainLayout currentUser={ currentUser }>
+                <Registration />
+              </MainLayout>
             } />
             <Route path="/login" element={
-            <MainLayout>
-              <Login />
-            </MainLayout>
+              currentUser ? <Navigate to="/" />
+              : 
+              (<MainLayout currentUser={ currentUser }>
+                <Login />
+              </MainLayout>)
             } />
           </Routes>
       </div>
