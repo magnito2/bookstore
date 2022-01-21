@@ -6,48 +6,43 @@ import './styles.scss';
 
 import Logo from '../../assets/Logo.png'
 
-const Header = props => {
+const Header = (props) => {
+  const { currentUser } = props;
+  return (
+    <header className="header">
+      <div className="wrap">
+        <div className="logo">
+          <Link to="/">
+            <img src={Logo} alt="ekitabu Logo" />
+          </Link>
+        </div>
+      </div>
 
-    const { currentUser } = props;
-    return (
-        <header className="header">
-            <div className="wrap">
-                <div className="logo">
-                    <Link to="/">
-                        <img src={Logo} alt="ekitabu Logo" />
-                    </Link>
-                </div>
-            </div>
+      <div className="callToActions">
+        {currentUser && (
+          <ul>
+            <li>
+              <Link to="/dashboard">My Account</Link>
+            </li>
+            <li>
+              <span onClick={() => auth.signOut()}>Logout</span>
+            </li>
+          </ul>
+        )}
 
-            <div className="callToActions">
-                {currentUser && (
-                    <ul>
-                        <li>
-                            <span onClick={() => auth.signOut()}>
-                                Logout
-                            </span>
-                        </li>
-                    </ul>
-                )}
-
-                {!currentUser && (
-                    <ul>
-                    <li>
-                        <Link to="/registration">
-                            Register
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/login">
-                            Login
-                        </Link>
-                    </li>
-                </ul>
-                )}
-            </div>
-
-        </header>
-    );
+        {!currentUser && (
+          <ul>
+            <li>
+              <Link to="/registration">Register</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+        )}
+      </div>
+    </header>
+  );
 };
 
 Header.defaultProps = {
