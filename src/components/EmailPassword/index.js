@@ -1,43 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetPassword, resetAllAuthForms } from "../../redux/User/user.actions";
 import "./styles.scss";
 
 import AuthWrapper from "../AuthWrapper";
 import FormInput from "../forms/FormInput";
 import Button from "../forms/Button";
-import { auth } from "../../firebase/utils";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+
+const mapState = ({ user }) => ({
+  resetPasswordSuccess: user.resetPasswordSuccess,
+  resetPasswordError: user.resetPasswordError
+});
 
 const EmailPassword = (props) => {
+  let navigate = useNavigate();
+
+  const { resetPasswordSuccess, resetPasswordError } = useSelector(mapState);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState([]);
-
-  let navigate = useNavigate()
 
   const reset = () => {
     setEmail('');
     setErrors([]);
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const config = {
-        url: "http://localhost:3000/login",
-      };
-
-      await sendPasswordResetEmail(auth, email, config)
-        .then(() => {
-          navigate("/login");
-        })
-        .catch(() => {
-          const err = ["Email Not Found, please try again"];
-          setErrors(err);
-        });
-    } catch (error) {
-      //console.log(error)
+  useEffect(()=>{
+    if(resetPasswordSuccess){
+      dispatch(resetAllAuthForms);
+      navigate('/login');
     }
+  }, [resetPasswordSuccess]);
+
+  useEffect(()=>{
+    if(Array.isArray(resetPasswordError) && resetPasswordError.length > 0){
+      setErrors(resetPasswordError);
+    }
+  }, [resetPasswordError]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(resetPassword({ email }));
   };
 
   const configAuthWrapper = {

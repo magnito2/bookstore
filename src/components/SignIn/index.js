@@ -1,38 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import "./styles.scss";
 import Button from "../forms/Button";
 import FormInput from "../forms/FormInput";
 import AuthWrapper from "../AuthWrapper";
-
-import { signInWithGoogle, auth } from "../../firebase/utils";
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Link, useNavigate } from "react-router-dom";
+import { signInUser, signInWithGoogle, resetAllAuthForms } from '../../redux/User/user.actions';
 
+const mapState = ({ user }) => ({
+  signInSuccess: user.signInSuccess
+});
 
 const SignIn = (props) => {
-
+  const { signInSuccess } = useSelector(mapState);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
+  
+  useEffect(()=>{
+    if(signInSuccess){
+      resetForm();
+      dispatch(resetAllAuthForms());
+      navigate("/");
+    }
+  }, [signInSuccess]);
 
   const resetForm = () => {
     setEmail('');
     setPassword('');
   }
   
-  const handleSubmit = async (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      resetForm();
-      navigate('/');
-
-    } catch (error) {
-      //console.log(error)
-    }
+    dispatch(signInUser({ email, password}))
   };
+
+  const handleGoogleSignIn = () => {
+    dispatch(signInWithGoogle());
+  }
 
   const configAuthWrapper = {
     headline: "Login",
@@ -62,7 +69,7 @@ const SignIn = (props) => {
 
           <div className="socialSignin">
             <div className="row">
-              <Button onClick={signInWithGoogle}>Sign in with Google</Button>
+              <Button onClick={handleGoogleSignIn}>Sign in with Google</Button>
             </div>
           </div>
           <div className="links">
@@ -73,6 +80,5 @@ const SignIn = (props) => {
     </AuthWrapper>
   );
 };
-
 
 export default SignIn;

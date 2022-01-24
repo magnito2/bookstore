@@ -1,6 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import {getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 import { firebaseConfig } from "./config";
 
@@ -9,9 +9,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const firestore = getFirestore(app);
 
-const GoogleProvider = new GoogleAuthProvider();
+export const GoogleProvider = new GoogleAuthProvider();
 GoogleProvider.setCustomParameters({ prompt: 'select_account' })
-export const signInWithGoogle = () => signInWithPopup(auth, GoogleProvider);
 
 export const handleUserProfile = async (userAuth, additionalData) => {
     if(!userAuth) return;
