@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Routes, Navigate } from "react-router-dom";
-import { onSnapshot, doc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { Route, Routes } from "react-router-dom";
+
 
 //hoc
 import WithAuth from "./hoc/withAuth";
@@ -11,7 +10,6 @@ import WithAuth from "./hoc/withAuth";
 import MainLayout from "./layouts/MainLayout";
 import HomepageLayout from "./layouts/HomepageLayout";
 
-import { auth, handleUserProfile, firestore } from "./firebase/utils";
 import "./default.scss";
 
 import Registration from "./pages/Registration";
@@ -20,30 +18,13 @@ import Login from "./pages/Login";
 import Recovery from "./pages/Recovery";
 import Dashboard from "./pages/Dashboard";
 
-import { setCurrentUser } from "./redux/User/user.actions";
+import { checkUserSession } from "./redux/User/user.actions";
 
 const App = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let authListener;
-    onAuthStateChanged(auth, async (userAuth) => {
-      if (userAuth) {
-        const userRef = await handleUserProfile(userAuth);
-        authListener = onSnapshot(userRef, (snapshot) => {
-          dispatch(setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data(),
-          }));
-        });
-      } else {
-        dispatch(setCurrentUser(userAuth));
-      }
-    });
-
-    return () => {
-      authListener && authListener();
-    };
+    dispatch(checkUserSession())
   }, []);
 
   return (
