@@ -19,6 +19,7 @@ export const handleUserProfile = async ({ userAuth, additionalData }) => {
 
     const userRef = doc(firestore, "users", uid);
     const snapshot = await getDoc(userRef);
+    const userRoles = ['user'];
 
     if (!snapshot.exists()) {
         // create a new one
@@ -30,6 +31,7 @@ export const handleUserProfile = async ({ userAuth, additionalData }) => {
                 displayName,
                 email,
                 timestamp,
+                userRoles,
                 ...additionalData
             });
 
