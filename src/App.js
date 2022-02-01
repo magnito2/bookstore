@@ -9,6 +9,8 @@ import WithAdminAuth from "./hoc/withAdminAuth";
 //layouts
 import MainLayout from "./layouts/MainLayout";
 import HomepageLayout from "./layouts/HomepageLayout";
+import AdminLayout from "./layouts/AdminLayout";
+import DashBoardLayout from "./layouts/DashboardLayout";
 
 import "./default.scss";
 
@@ -72,9 +74,9 @@ const App = (props) => {
           path="/dashboard"
           element={
             <WithAuth>
-              <MainLayout>
+              <DashBoardLayout>
                 <Dashboard />
-              </MainLayout>
+              </DashBoardLayout>
             </WithAuth>
           }
         />
@@ -82,9 +84,9 @@ const App = (props) => {
           path="/admin"
           element={
             <WithAdminAuth>
-              <MainLayout>
+              <AdminLayout>
                 <Admin />
-              </MainLayout>
+              </AdminLayout>
             </WithAdminAuth>
           }
         />
