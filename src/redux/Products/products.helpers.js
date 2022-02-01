@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDocs, deleteDoc, orderBy, query, where } from 'firebase/firestore';
+import { collection, doc, addDoc, getDocs, deleteDoc, orderBy, query, where, limit, startAfter } from 'firebase/firestore';
 import { firestore } from '../../firebase/utils';
 
 export const handleAddProduct = product => {
@@ -13,21 +13,32 @@ export const handleAddProduct = product => {
     })
 }
 
-export const handleFetchProduct = ({ filterType }) => {
+export const handleFetchProduct = ({ filterType, startAfterDoc, persistProducts=[] }) => {
     return new Promise((resolve, reject) => {
-        console.log('Filter type is ', filterType);
+        const pageSize = 6;
+        console.log('start after doc is ', startAfterDoc);
         let ref = collection(firestore, 'products');
-        let q = query(ref, orderBy('createdDate'));
-        if(filterType) q = query(q, where('productCategory', '==', filterType)); 
+        let q = query(ref, orderBy('createdDate'), limit(pageSize));
+        if(filterType) q = query(q, where('productCategory', '==', filterType));
+        if(startAfterDoc) q = query(q, startAfter(startAfterDoc)); 
         getDocs(q)
         .then(snapshot => {
-            const productArray = snapshot.docs.map(doc => {
-                return {
-                    ...doc.data(),
-                    documentID: doc.id
-                }
+            const totalCount = snapshot.size;
+
+            const data = [
+                ...persistProducts,
+                ...snapshot.docs.map(doc => {
+                    return {
+                        ...doc.data(),
+                        documentID: doc.id
+                    }
+                })
+            ];
+            resolve({
+                data,
+                queryDoc: snapshot.docs[totalCount -1],
+                isLastPage: totalCount < 1
             });
-            resolve(productArray);
         })
         .catch(err => {
             reject(err)
@@ -36,15 +47,9 @@ export const handleFetchProduct = ({ filterType }) => {
 }
 
 export const handleDeleteProduct = documentID => {
-    console.log('we are here', documentID);
-
+    
     return new Promise((resolve, reject) => {
-        // firestore
-        // .collection('products')
-        // .doc(documentID)
-        // .delete()
-        
-
+       
         deleteDoc(doc(firestore, 'products', documentID))
         .then(() => {
             resolve();
