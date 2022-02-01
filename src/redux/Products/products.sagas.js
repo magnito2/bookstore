@@ -36,9 +36,9 @@ export function* onAddProductStart() {
   yield takeLatest(productsTypes.ADD_NEW_PRODUCT_START, addProduct);
 }
 
-export function* fetchProducts(){
+export function* fetchProducts({ payload : { filterType }}){
     try{
-        const products = yield handleFetchProduct();
+        const products = yield handleFetchProduct({ filterType });
         yield put(
             setProducts(products)
         )

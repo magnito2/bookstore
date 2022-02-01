@@ -21,6 +21,7 @@ import Login from "./pages/Login";
 import Recovery from "./pages/Recovery";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
+import Search from "./pages/Search";
 
 //components
 import AdminToolbar from "./components/AdminToolbar";
@@ -44,6 +45,23 @@ const App = (props) => {
             <HomepageLayout>
               <Homepage />
             </HomepageLayout>
+          }
+        />
+        <Route
+          exact
+          path="/search"
+          element={
+            <MainLayout>
+              <Search />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/search/:filterType"
+          element={
+            <MainLayout>
+              <Search />
+            </MainLayout>
           }
         />
         <Route

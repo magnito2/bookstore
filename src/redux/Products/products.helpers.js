@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDocs, deleteDoc } from 'firebase/firestore';
+import { collection, doc, addDoc, getDocs, deleteDoc, orderBy, query, where } from 'firebase/firestore';
 import { firestore } from '../../firebase/utils';
 
 export const handleAddProduct = product => {
@@ -13,13 +13,13 @@ export const handleAddProduct = product => {
     })
 }
 
-export const handleFetchProduct = () => {
+export const handleFetchProduct = ({ filterType }) => {
     return new Promise((resolve, reject) => {
-        // firestore
-        // .collection('products')
-        // .get()
-        
-        getDocs(collection(firestore, 'products'))
+        console.log('Filter type is ', filterType);
+        let ref = collection(firestore, 'products');
+        let q = query(ref, orderBy('createdDate'));
+        if(filterType) q = query(q, where('productCategory', '==', filterType)); 
+        getDocs(q)
         .then(snapshot => {
             const productArray = snapshot.docs.map(doc => {
                 return {
