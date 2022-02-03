@@ -22,6 +22,7 @@ import Recovery from "./pages/Recovery";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import Search from "./pages/Search";
+import ProductDetails from "./pages/ProductDetails";
 
 //components
 import AdminToolbar from "./components/AdminToolbar";
@@ -61,6 +62,15 @@ const App = (props) => {
           element={
             <MainLayout>
               <Search />
+            </MainLayout>
+          }
+        />
+        <Route
+          exact
+          path="/product/:productID"
+          element={
+            <MainLayout>
+              <ProductDetails />
             </MainLayout>
           }
         />

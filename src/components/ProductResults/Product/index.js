@@ -1,29 +1,61 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { addProduct } from "../../../redux/Cart/cart.actions";
 import Button from "./../../forms/Button";
 
-const Product = ({ productThumbnail, productName, productPrice, pos }) => {
-    if(!productThumbnail || !productName || typeof(productPrice) === 'undefined') return null;
+const Product = (product) => {
+
+  const dispatch = useDispatch();
+
+  const { 
+    documentID,
+    productThumbnail,
+    productName, 
+    productPrice, 
+    pos 
+  } = product;
+
+    if(!documentID || !productThumbnail || !productName || typeof(productPrice) === 'undefined') return null;
 
     const configAddToCartButton = {
         type: 'button'
     }
 
+    const handleAddToCart = product => {
+      if(!product) return;
+      dispatch(
+        addProduct(product)
+      )
+    };
+
     return (
       <div className="product">
         <div className="thumb">
-          <img src={productThumbnail} alt={productName} />
+          <Link to={`/product/${documentID}`}>
+            <img src={productThumbnail} alt={productName} />
+          </Link>
         </div>
         <div className="details">
           <ul>
             <li key={`dn${pos}`}>
-              <span className="name">{productName}</span>
+              <span className="name">
+                <Link to={`/product/${documentID}`}>
+                  {productName}
+                </Link>
+              </span>
             </li>
             <li key={`dp${pos}`}>
               <span className="price">KES {productPrice}</span>
             </li>
             <li key={`db${pos}`}>
               <div className="addToCart">
-                <Button {...configAddToCartButton}>Add to Cart</Button>
+                <Button 
+                {...configAddToCartButton}
+                onClick={() => handleAddToCart(product)}
+                >
+                  Add to Cart
+                </Button>
               </div>
             </li>
           </ul>

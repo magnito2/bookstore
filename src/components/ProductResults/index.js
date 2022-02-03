@@ -87,13 +87,10 @@ const ProductResults = props => {
                     const { productThumbnail, productName, productPrice } = product;
                     if(!productThumbnail || !productName || typeof(productPrice) === 'undefined') return null;
                     const configProduct = {
-                        productThumbnail, 
-                        productName, 
-                        productPrice,
-                        pos
+                        ...product
                     };
                     return (
-                        <Product { ...configProduct } />
+                        <Product { ...configProduct } key={`prod-${pos}`} />
                     );
                 })
             }

@@ -6,7 +6,7 @@ import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
 import LoadMore from './../../components/LoadMore';
-// import CKEditor from 'ckeditor4-react';
+import { CKEditor } from 'ckeditor4-react';
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({
@@ -133,9 +133,9 @@ const Admin = props => {
               handleChange={e => setProductPrice(e.target.value)}
             />
 
-            {/* <CKEditor
+            <CKEditor
               onChange={evt => setProductDesc(evt.editor.getData())}
-            /> */}
+            />
 
             <br />
 

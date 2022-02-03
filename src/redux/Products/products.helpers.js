@@ -1,4 +1,4 @@
-import { collection, doc, addDoc, getDocs, deleteDoc, orderBy, query, where, limit, startAfter } from 'firebase/firestore';
+import { collection, doc, addDoc, getDoc, getDocs, deleteDoc, orderBy, query, where, limit, startAfter } from 'firebase/firestore';
 import { firestore } from '../../firebase/utils';
 
 export const handleAddProduct = product => {
@@ -13,10 +13,9 @@ export const handleAddProduct = product => {
     })
 }
 
-export const handleFetchProduct = ({ filterType, startAfterDoc, persistProducts=[] }) => {
+export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts=[] }) => {
     return new Promise((resolve, reject) => {
         const pageSize = 6;
-        console.log('start after doc is ', startAfterDoc);
         let ref = collection(firestore, 'products');
         let q = query(ref, orderBy('createdDate'), limit(pageSize));
         if(filterType) q = query(q, where('productCategory', '==', filterType));
@@ -57,4 +56,23 @@ export const handleDeleteProduct = documentID => {
             reject(err);
         })
     });
+}
+
+export const handleFetchProduct = (productID) => {
+    console.log('We actually got here');
+    return new Promise((resolve, reject) => {
+        const docRef = doc(firestore, 'products', productID);
+        getDoc(docRef)
+        .then(snapshot => {
+            if(snapshot.exists()){
+                resolve({
+                    ...snapshot.data(),
+                    documentID: snapshot.id
+                });
+            }
+        })
+        .catch(err => {
+            reject(err);
+        });
+    })
 }
