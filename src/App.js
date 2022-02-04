@@ -23,6 +23,7 @@ import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import Search from "./pages/Search";
 import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
 
 //components
 import AdminToolbar from "./components/AdminToolbar";
@@ -66,11 +67,18 @@ const App = (props) => {
           }
         />
         <Route
-          exact
           path="/product/:productID"
           element={
             <MainLayout>
               <ProductDetails />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <MainLayout>
+              <Cart />
             </MainLayout>
           }
         />

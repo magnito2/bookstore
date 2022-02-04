@@ -1,12 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addProduct } from "../../../redux/Cart/cart.actions";
 import Button from "./../../forms/Button";
 
 const Product = (product) => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { 
     documentID,
@@ -26,7 +27,8 @@ const Product = (product) => {
       if(!product) return;
       dispatch(
         addProduct(product)
-      )
+      );
+      navigate('/cart')
     };
 
     return (
