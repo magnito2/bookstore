@@ -29,3 +29,8 @@ export const setProduct = product => ({
     type: productsTypes.SET_PRODUCT,
     payload: product
 });
+
+export const filterProductsStart = (filters) => ({
+    type: productsTypes.FILTER_PRODUCTS_START,
+    payload: filters
+});

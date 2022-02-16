@@ -88,3 +88,38 @@ export const handleFetchProduct = (productID) => {
         });
     })
 }
+
+export const handleFilterProducts = (payload) => {
+    console.log(`Filters are ${JSON.stringify(payload)}`);
+    const { year, grade, schoolID } = payload;
+    return new Promise((resolve, reject) => {
+      const pageSize = 100;
+      let ref = collection(firestore, "products");
+      let q = query(ref, orderBy("createdDate"), limit(pageSize));
+      const schoolRef = doc(firestore, "schools", schoolID);
+      q = query(q, where("schoolIDs", "array-contains", schoolRef));
+
+      getDocs(q)
+        .then((snapshot) => {
+          const data = [
+            ...snapshot.docs.map((doc) => {
+              return {
+                ...doc.data(),
+                documentID: doc.id,
+              };
+            }),
+          ];
+
+          const filteredProducts = data.filter(
+            (product) => product.grade === grade && product.year === year
+          );
+
+          resolve({
+            data: filteredProducts,
+          });
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+}

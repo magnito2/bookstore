@@ -17,7 +17,7 @@ const Admin = props => {
   const { products } = useSelector(mapState);
   const dispatch = useDispatch();
   const [hideModal, setHideModal] = useState(true);
-  const [productCategory, setProductCategory] = useState('primarySchool');
+  const [grade, setGrade] = useState('primary');
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
@@ -40,7 +40,7 @@ const Admin = props => {
 
   const resetForm = () => {
     setHideModal(true);
-    setProductCategory('primarySchool');
+    setGrade('primary');
     setProductName('');
     setProductThumbnail('');
     setProductPrice(0);
@@ -52,7 +52,7 @@ const Admin = props => {
 
     dispatch(
       addProductStart({
-        productCategory,
+        grade,
         productName,
         productThumbnail,
         productPrice,
@@ -98,15 +98,17 @@ const Admin = props => {
             </h2>
 
             <FormSelect
-              label="Category"
+              label="Grade"
               options={[{
-                value: "primarySchool",
-                name: "Primary School"
+                value: "primary",
+                name: "Primary School",
+                key: "l1"
               }, {
-                value: "secondarySchool",
-                name: "Secondary School"
+                value: "secondary",
+                name: "Secondary School",
+                key: "l2"
               }]}
-              handleChange={e => setProductCategory(e.target.value)}
+              handleChange={e => setGrade(e.target.value)}
             />
 
             <FormInput
@@ -135,6 +137,7 @@ const Admin = props => {
 
             <CKEditor
               onChange={evt => setProductDesc(evt.editor.getData())}
+              config={{placeholder: "Add Product Description"}} 
             />
 
             <br />
