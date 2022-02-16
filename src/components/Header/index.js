@@ -33,8 +33,8 @@ const Header = (props) => {
             <img src={Logo} alt="ekitabu Logo" />
           </Link>
         </div>
-        <nav>
-          <ul className={click ? "nav-options active" : "nav-options"}>
+        <nav className={click ? "active" : ""}>
+          <ul className="nav-options">
             <div className="navigators">
               <li className="option" onClick={closeMobileMenu}>
                 <Link to="/">Home</Link>
@@ -51,18 +51,18 @@ const Header = (props) => {
             </div>
             <div className="accountActions">
             {currentUser && [
-                  <li className="option" onClick={closeMobileMenu}>
+                  <li className="option" key='1' onClick={closeMobileMenu}>
                     <Link to="/dashboard">My Account</Link>
                   </li>,
-                  <li className="option" onClick={closeMobileMenu}>
+                  <li className="option" key='2' onClick={closeMobileMenu}>
                     <span onClick={() => signOut()}>Logout</span>
                   </li>
               ]}
               {!currentUser && [
-                  <li className="option" onClick={closeMobileMenu}>
+                  <li className="option" key='3' onClick={closeMobileMenu}>
                     <Link to="/registration">Register</Link>
                   </li>,
-                  <li className="option" onClick={closeMobileMenu}>
+                  <li className="option" key='4' onClick={closeMobileMenu}>
                     <Link to="/login">Login</Link>
                   </li>
               ]}
@@ -70,11 +70,6 @@ const Header = (props) => {
           </ul>
         </nav>
 
-        <div className="callToActions">
-          <ul className={click ? "nav-options active" : "nav-options"}>
-            
-          </ul>
-        </div>
         <div className="mobile-menu" onClick={handleClick}>
         {click ? (
           <CloseMenu className="menu-icon" />

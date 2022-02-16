@@ -1,9 +1,9 @@
 import { collection, doc, addDoc, getDoc, getDocs, deleteDoc, orderBy, query, where, limit, startAfter } from 'firebase/firestore';
 import { firestore } from '../../firebase/utils';
 
-export const handleAddProduct = product => {
+export const handleAddSubject = subject => {
     return new Promise((resolve, reject) => {
-        addDoc(collection(firestore, 'products'), product)
+        addDoc(collection(firestore, 'subjects'), subject)
         .then(() => {
             resolve();
         })
@@ -13,32 +13,19 @@ export const handleAddProduct = product => {
     })
 }
 
-export const handleFetchProducts = ({ filterType, filters = {}, startAfterDoc, persistProducts=[] }) => {
-     
+export const handleFetchSubjects = ({ filterType, startAfterDoc, persistSUBJECTs=[] }) => {
     return new Promise((resolve, reject) => {
-        const pageSize = 12;
-        let ref = collection(firestore, 'products');
+        const pageSize = 50;
+        let ref = collection(firestore, 'subjects');
         let q = query(ref, orderBy('createdDate'), limit(pageSize));
-        
-        if(filters instanceof Object && Object.keys(filters).length > 0){
-            const { grade, year, subject, schoolID } = filters;
-            if(grade) q = query(q, where('grade', '==', grade));
-            if(year) q = query(q, where('year', '==', year));
-            if(subject) q = query(q, where('subject', '==', subject));
-            if(schoolID) { 
-                const schoolRef = doc(firestore, 'schools', schoolID);
-                q = query(q, where('schoolIDs', 'array-contains', schoolRef));
-            }
-        }
-
-        if(filterType) q = query(q, where('productCategory', '==', filterType));
+        if(filterType) q = query(q, where('subjectCategory', '==', filterType));
         if(startAfterDoc) q = query(q, startAfter(startAfterDoc)); 
         getDocs(q)
         .then(snapshot => {
             const totalCount = snapshot.size;
 
             const data = [
-                ...persistProducts,
+                ...persistSUBJECTs,
                 ...snapshot.docs.map(doc => {
                     return {
                         ...doc.data(),
@@ -58,11 +45,11 @@ export const handleFetchProducts = ({ filterType, filters = {}, startAfterDoc, p
     })
 }
 
-export const handleDeleteProduct = documentID => {
+export const handleDeleteSubject = documentID => {
     
     return new Promise((resolve, reject) => {
        
-        deleteDoc(doc(firestore, 'products', documentID))
+        deleteDoc(doc(firestore, 'subjects', documentID))
         .then(() => {
             resolve();
         }).catch(err => {
@@ -71,9 +58,10 @@ export const handleDeleteProduct = documentID => {
     });
 }
 
-export const handleFetchProduct = (productID) => {
+export const handleFetchSubject = (subjectID) => {
+    
     return new Promise((resolve, reject) => {
-        const docRef = doc(firestore, 'products', productID);
+        const docRef = doc(firestore, 'subjects', subjectID);
         getDoc(docRef)
         .then(snapshot => {
             if(snapshot.exists()){

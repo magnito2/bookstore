@@ -17,6 +17,7 @@ import {
   signOutUserSuccess,
   resetPasswordSuccess,
   userError,
+  stopLoading
 } from "./user.actions";
 
 import { handleResetPasswordAPI } from "./user.helpers";
@@ -55,7 +56,10 @@ export function* onEmailSignInStart() {
 export function* isUserAuthenticated() {
   try {
     const userAuth = yield getCurrentUser();
-    if (!userAuth) return;
+    if (!userAuth){
+      yield put(stopLoading());
+      return;
+    }
     yield getSnapshotFromUserAuth(userAuth);
   } catch (err) {
     //console.log(err);

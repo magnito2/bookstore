@@ -85,7 +85,7 @@
   /*Mobile View */
   .header {
     padding: 0px;
-
+    z-index: 10;
     .wrap {
       .logo {
         width: 20rem;
@@ -96,6 +96,17 @@
         left: 0;
         top: 7rem;
         width: 100%;
+        transform: translateX(-100%);
+        opacity: 100;
+        transition: all 0.5s ease;
+
+        &.active {
+          transform: translateX(0);
+          opacity: 0.9;
+          transition: all 0.5s ease;
+          z-index: 10;
+          background: #118ab2;
+        }
 
         ul {
 
@@ -109,22 +120,11 @@
       .nav-options {
         display: flex;
         width: 100%;
-        opacity: 0;
-        transition: all 0.5s ease;
         flex-direction: column;
         list-style-type: none;
         grid-gap: 0px;
-      }
-      .nav-options.active {
-        background: #118ab2;
-        left: 0;
-        opacity: 0.9;
-        transition: all 0.5s ease;
-        z-index: 1;
         align-content: center;
-        padding-left: 0px;
       }
-
       .menu-icon {
         width: 45px;
         height: 45px;

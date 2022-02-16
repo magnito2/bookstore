@@ -6,13 +6,15 @@ import FormInput from "../forms/FormInput";
 import AuthWrapper from "../AuthWrapper";
 import { Link, useNavigate } from "react-router-dom";
 import { emailSignInStart, googleSignInStart } from '../../redux/User/user.actions';
+import LoadingAnim from "../LoadingAnim";
 
 const mapState = ({ user }) => ({
-  currentUser: user.currentUser
+  currentUser: user.currentUser,
+  isLoading: user.isLoading
 });
 
 const SignIn = (props) => {
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, isLoading } = useSelector(mapState);
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,6 +49,7 @@ const SignIn = (props) => {
   return (
     <AuthWrapper {...configAuthWrapper}>
       <div className="formWrapper">
+      { isLoading ? <LoadingAnim /> : null}
         <form onSubmit={handleSubmit}>
           <FormInput
             type="email"

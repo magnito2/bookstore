@@ -1,0 +1,19 @@
+.filterProducts {
+    flex-grow: 1;
+    height: 100%;
+    z-index: 2;
+
+    .multiLevelMenu {
+        .rmlm-item-container {
+            font-size: 0.8em;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+@media screen and (max-width:  700px) {
+    .filterProducts {
+        width: 100%;
+    }     
+}

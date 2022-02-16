@@ -76,7 +76,7 @@ const ProductCard = ({}) => {
                         </div>
                     </li>
                     <li>
-                        <span dangerouslySetInnerHTML={{ __html: productDesc }} />
+                        {productDesc ? <span dangerouslySetInnerHTML={{ __html: productDesc }} />: <p>Talk to use for more information about the book</p>}
                     </li>
                 </ul>
             </div>

@@ -5,10 +5,13 @@ import { fetchProductsStart } from "../../redux/Products/products.actions";
 import Product from "./Product";
 import FormSelect from "../forms/FormSelect";
 import LoadMore from "../LoadMore";
+import LoadingAnim from "../LoadingAnim";
+
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({
-    products: productsData.products
+    products: productsData.products,
+    isLoading : productsData.isLoading
 });
 
 const ProductResults = props => {
@@ -16,7 +19,7 @@ const ProductResults = props => {
     const navigate = useNavigate();
     const { filterType } = useParams();
 
-    const { products } = useSelector(mapState);
+    const { products, isLoading } = useSelector(mapState);
 
     const { data, queryDoc, isLastPage } = products;
 
@@ -79,8 +82,9 @@ const ProductResults = props => {
 
     return (
         <div className="products">
-            <h1> Browse Products </h1>
+            <h1> Browse Books </h1>
             <FormSelect { ...configFilters } />
+            { isLoading ? <LoadingAnim /> : null}
             <div className="productResults">
             {
                 data.map((product, pos) => {

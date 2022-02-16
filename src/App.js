@@ -24,6 +24,8 @@ import Admin from "./pages/Admin";
 import Search from "./pages/Search";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
+import AdminSchools from "./pages/Admin/Schools";
+import AdminSubjects from "./pages/Admin/Subjects";
 
 //components
 import AdminToolbar from "./components/AdminToolbar";
@@ -117,11 +119,32 @@ const App = (props) => {
           }
         />
         <Route
+          exact
           path="/admin"
           element={
             <WithAdminAuth>
               <AdminLayout>
                 <Admin />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/schools"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminSchools />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/subjects"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminSubjects />
               </AdminLayout>
             </WithAdminAuth>
           }

@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   currentUser: null,
   resetPasswordSuccess: false,
   userErr: [],
+  isLoading: false
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -13,6 +14,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: action.payload,
         userErr: [],
+        isLoading: false
       };
     case userTypes.RESET_PASSWORD_SUCCESS:
       return {
@@ -30,6 +32,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         ...INITIAL_STATE,
       };
+    case userTypes.CHECK_USER_SESSION:
+    case userTypes.EMAIL_SIGN_IN_START:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case userTypes.STOP_LOADING:
+      return {
+        ...state,
+        isLoading: false
+      }
     default:
       return state;
   }

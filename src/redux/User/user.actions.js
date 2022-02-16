@@ -59,4 +59,8 @@ export const resetPasswordSuccess = () => ({
 export const resetUserState = () => ({
   type: userTypes.RESET_USER_STATE,
   
-})
+});
+
+export const stopLoading = () => ({
+  type: userTypes.STOP_LOADING,
+});
