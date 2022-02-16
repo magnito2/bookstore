@@ -4,31 +4,41 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
   .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: relative;
     height: 100%;
     max-width: 1450px;
     margin: 0 auto;
 
     .logo {
-      width: 7em;
-      position: absolute;
+      display: flex;
+      padding: 1rem 2rem;
+      width: 15rem;
       top: 5px;
       left: 5px;
+
+      img {
+        max-width: 90%;
+        height: auto;
+        margin: 0;
+      }
     }
 
-    img {
-      max-width: 90%;
-      height: auto;
-      margin: 0;
+    .mobile-option {
+      display: none;
+    }
+    .mobile-menu {
+      display: none;
     }
   }
 
   nav {
-    display: block;
-    width: 100%;
-    height: 100%;
     padding: 0;
     margin: 0;
+    position: relative;
+    width: 100%;
 
     ul,
     li {
@@ -38,7 +48,20 @@
     }
 
     ul {
-      text-align: center;
+      display: flex;
+      flex-grow: 2;
+      align-items: center;
+      justify-content: space-between;
+
+      .navigators {
+        display: flex;
+        flex-grow: 2;
+        justify-content: center;
+      }
+
+      .accountActions {
+        align-self: flex-end;
+      }
 
       li {
         list-style-type: none;
@@ -56,37 +79,67 @@
       }
     }
   }
+}
 
-  .callToActions {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    transform: translateY(-50%);
+@media (max-width: 750px) {
+  /*Mobile View */
+  .header {
+    padding: 0px;
 
-    ul,
-    li {
-      margin: 0;
-      padding: 0;
-    }
-
-    li {
-      display: inline-block;
-      list-style-type: none;
-      margin-right: 1.5rem;
-
-      &:last-child {
-        margin-right: 0;
+    .wrap {
+      .logo {
+        width: 20rem;
       }
 
-      a,
-      span {
-        font-size: 1.8rem;
-        line-height: 1;
-        color: black;
-        text-decoration: none;
-        text-transform: uppercase;
+      nav {
+        position: absolute;
+        left: 0;
+        top: 7rem;
+        width: 100%;
+
+        ul {
+
+          .navigators, .accountActions {
+            display: block;
+            margin: 0 auto;
+          }
+        }
+      }
+
+      .nav-options {
+        display: flex;
+        width: 100%;
+        opacity: 0;
+        transition: all 0.5s ease;
+        flex-direction: column;
+        list-style-type: none;
+        grid-gap: 0px;
+      }
+      .nav-options.active {
+        background: #118ab2;
+        left: 0;
+        opacity: 0.9;
+        transition: all 0.5s ease;
+        z-index: 1;
+        align-content: center;
+        padding-left: 0px;
+      }
+
+      .menu-icon {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 10vw;
+        padding: 30px 0px;
+      }
+      .mobile-menu {
+        display: block;
+        padding-right: 4rem;
       }
     }
   }
