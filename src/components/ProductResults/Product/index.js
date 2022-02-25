@@ -13,14 +13,16 @@ const Product = (product) => {
     documentID,
     productThumbnail,
     productName, 
-    productPrice, 
+    productPrice,
+    author, 
     pos 
   } = product;
 
     if(!documentID || !productThumbnail || !productName || typeof(productPrice) === 'undefined') return null;
 
     const configAddToCartButton = {
-        type: 'button'
+        type: 'button',
+        className: 'addToCart'
     }
 
     const handleAddToCart = product => {
@@ -32,36 +34,35 @@ const Product = (product) => {
     };
 
     return (
-      <div className="product">
-        <div className="thumb">
+      <div className="productCard">
+        <div class="cardImg">
           <Link to={`/product/${documentID}`}>
             <img src={productThumbnail} alt={productName} />
           </Link>
         </div>
-        <div className="details">
-          <ul>
-            <li key={`dn${pos}`}>
-              <span className="name">
-                <Link to={`/product/${documentID}`}>
-                  {productName}
-                </Link>
-              </span>
-            </li>
-            <li key={`dp${pos}`}>
-              <span className="price">KES {productPrice}</span>
-            </li>
-            <li key={`db${pos}`}>
-              <div className="addToCart">
-                <Button 
+        <div class="cardBody">
+          <div class="cardHeader">
+            <Link to={`/product/${documentID}`}>
+            <h1 class="title">{productName}</h1>
+            </Link>
+            <h2 class="author">{author}</h2>
+          </div>
+          <div class="priceWrap">
+            <h2 class="priceTag">
+              <span class="symbol">KES </span>
+              <span class="price">{ productPrice }</span>
+            </h2>
+          </div>
+        </div>
+        <div class="actionBtn">
+          <Button 
                 {...configAddToCartButton}
                 onClick={() => handleAddToCart(product)}
                 >
-                  Add to Cart
-                </Button>
-              </div>
-            </li>
-          </ul>
+                  ADD TO CART
+          </Button>
         </div>
+
       </div>
     );
 }

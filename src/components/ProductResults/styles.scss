@@ -1,77 +1,102 @@
+
 .products {
     display: block;
     width: 100%;
     padding: 0; 
     margin: 2rem 0;
     flex-grow: 2;
+    font-family: 'Open Sans', sans-serif;
 
     .productResults {
         display: flex;
         flex-wrap: wrap;
         padding-bottom: 2rem;
-    }
-}
 
-.product {
-    width: 25%;
-    min-width: 30rem;
-    padding: 0 1rem;
-    margin: 2rem auto;
-
-    .thumb {
-        display: block;
-        width: 100%;
-        height: 80%;
-
-        img{
-            display: block;
-            width: 75%;
-            height: 100%;
-            object-fit: cover;
-            margin: 0 auto;
-        }
-    }
-
-    .details {
-        display: block;
-        width: 100%;
-        padding: 1rem 0;
-        margin: 0 auto;
-
-        ul, li {
-            padding: 0;
-            margin: 0;
-        }
-
-        ul {
+        .productCard {
+            margin: 2rem;
+            height: 30rem;
+            width: 24rem;
+            min-width: 10rem;
+            box-shadow: 2px 3px 10px 1px #1e555c;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            
             li {
-                list-style-type: none;
-                display: block;
+                list-style: none;
+                color: inherit;
+            }
+
+            
+            .cardImg {
+              flex: 0 1 50%;
+              overflow: hidden;
+              
+              img {
                 width: 100%;
-                margin: 0 auto .5rem;
-                text-align: center;
+                object-fit: fill;
+              }
             }
-
-            a {
-                color: #000;
+            
+            .cardBody {
+              flex: 0 1 40%;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              background: white;
+              
+              * {
+                margin: 0;
+                padding: 0;
+              }
+              .cardHeader {
+                padding: 2rem;
+                width: 100%;
+                flex: 0 1 50%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                
+                .title {
+                  font-weight: 600;
+                  font-size: 2rem;
+                  font-family: 'ZCOOL QingKe HuangYou', cursive;
+                }
+                .author {
+                  font-weight: 300;
+                  font-size: 1rem;
+                  color: #e02e6e;
+                }
+              }
+              
+              .priceWrap {
+                margin: 0;
+                .priceTag {
+                  font-family: 'Raleway', sans-serif;
+                  .symbol {
+                    font-size: 1.25rem;
+                    color: #808080;
+                  }
+                  .price {
+                    font-size: 2.5rem;
+                  }
+                }
+              }
             }
+            
+            .actionBtn {
+              flex: 1 1 auto;
+              box-sizing: border-box;
 
-            .name {
-                font-size: 2rem;
-                line-height: 1.2;
-                font-weight: 400;
+              .addToCart {
+                border: none;
+                min-width: 100%;
+                height: 100%;
+                background: #e02e6e;
+                color: white;
+              }
             }
-
-            .price {
-                font-size: 1.5rem;
-                line-height: 1;
-                font-weight: 400;
-            }
-        }
-    }
-
-    .addToCart {
-        margin: 1rem auto 2rem;
-        width: 75%;
+          }
     }
 }

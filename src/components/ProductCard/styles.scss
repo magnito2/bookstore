@@ -1,39 +1,115 @@
-.productCard {
-    max-width: 50rem;
-    margin: 0 auto 10rem;
+.productDetails {
+    background: lightgreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    height: calc(100vh-5rem);
 
-    .hero {
-        display: block;
-        width: 100%;
-        margin: 2rem auto;
-
-        img {
-            display: block;
-            width: 100%;
-            margin: 0;
+    .productCard {
+      align-items: center;
+      display: flex;
+      height: 45rem;
+      margin: 3rem;
+      justify-content: center;
+      width: 45rem;
+      background: #FFF;
+      border-radius: 10px;
+        
+        .cardLogo {
+          flex-basis: 40%;
+          height: 100%;
+          position: relative;
+          
+          .prodImg {
+            position: absolute;
+            top: 50%;
+            transform: translatey(-50%) translateX(-25%);
+ 
+            width: 25rem;
+            max-width: 125%;
+            background: white;
+            
+            img {
+              max-width: 100%;
+              
+            }
+          }
         }
-    }
-
-    .productDetails {
-        text-align: center;
-        ul, ul li {
-            padding: 0;
-            margin: 0;
-        } 
-
-        ul li {
-            list-style-type: none;
-            margin: 0 auto 1rem;
+        
+        .wrap {
+          box-sizing: border-box;
+          padding: 1rem;
+          flex-basis: 60%;
+          display: flex;
+          flex-direction: column;
+          background: blue;
+          
+           .cardContent {
+              
+              .title {
+                margin: 0;
+                padding: 0;
+                font-size: 1.5;
+                font-weight: 400;
+              }
+  
+              .year {
+                font-size:1.6rem;
+                padding: 0;
+                margin: 0;
+                color: #8d9dad;
+              }
+          
+              .price {
+                color: #e9276d;
+                font-family: 'Akaya Telivigala', cursive;
+  
+                .symbol {
+                  font-size: 1.6rem;
+                }
+  
+                .amount {
+                  font-size: 3rem;
+                }
+              }
+          
+            .cardDesc {
+              * {
+                margin: 0;
+                padding: 0;
+              }
+              .descHeader {
+                color: #8d9dad;
+                padding: 0.3rem 0;
+                font-size: 2rem;
+              }
+              .descText {
+                font-size: 1.2rem;
+              }
+          }
         }
-
-        h1 {
-            margin: 0;
-            text-align: center;
+        
+           .addToCart {
+                margin: 2rem 0 0 0;
+                display: flex;
+                justify-content: center;
+                align-self: flex-end;
+                width: 100%;
+  
+                .btn {
+                  border: none;
+                  background: #e91c6e;
+                  padding: 0.5rem;
+                  border-radius: 5px;
+                  color: #FFF;
+                  width: 80%;
+                  
+                }
+              }
         }
-    }
-
-    .addToCart {
-        max-width: 20rem;
-        margin: 0 auto;
     }
 }
