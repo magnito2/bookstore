@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteSubjectStart, fetchSubjectsStart } from "../../redux/Subjects/subjects.actions";
 
+import SubjectResult from "./SubjectResult";
+
 import "./styles.scss";
 
 const mapState = (state) => ({
@@ -17,6 +19,10 @@ const SubjectsResults = ({}) => {
           fetchSubjectsStart()
       )
   }, []);
+
+  const handleDeleteSubject = (subjectID) => {
+    dispatch(deleteSubjectStart(subjectID))
+  }
 
   const primarySubjects = subjects.filter(
     (subject) => subject.subjectLevel === "primary"
@@ -41,21 +47,10 @@ const SubjectsResults = ({}) => {
             </thead>
             <tbody>
             {primarySubjects.map((subject, idx) => (
-              <tr>
-                <td>{idx + 1}</td>
-                <td>{subject.subjectName}</td>
-                <td></td>
-                <td>
-                  <span
-                    className="delete"
-                    onClick={() =>
-                      dispatch(deleteSubjectStart(subject.documentID))
-                    }
-                  >
-                    X
-                  </span>
-                </td>
-              </tr>
+              <SubjectResult 
+                subject={subject}
+                idx={idx}
+              />
             ))}
             </tbody>
           </table>
@@ -77,23 +72,10 @@ const SubjectsResults = ({}) => {
             </thead>
             <tbody>
             {secondarySubjects.map((subject, idx) => (
-              
-              <tr>
-            <td>{idx + 1}</td>
-            <td>{subject.subjectName}</td>
-            <td></td>
-            <td>
-              <span
-                className="delete"
-                onClick={() =>
-                  dispatch(deleteSubjectStart(subject.documentID))
-                }
-              >
-                X
-              </span>
-            </td>
-          </tr>
-          
+              <SubjectResult 
+                subject={subject}
+                idx={idx}
+              />
         ))}
             </tbody>
           </table>

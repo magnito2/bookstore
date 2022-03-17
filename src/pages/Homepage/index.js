@@ -1,6 +1,6 @@
 import React from "react";
 
-import Directory from "../../components/Directory";
+import Banner from "../../components/Banner";
 import ProductResults from "../../components/ProductResults";
 
 import "./styles.scss";
@@ -8,6 +8,7 @@ import "./styles.scss";
 const Homepage = props => {
     return (
         <section className="homepage">
+            <Banner />
             <ProductResults />
         </section>
     );

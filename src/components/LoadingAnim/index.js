@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as Loader } from '../../assets/loader.svg'
+import { ReactComponent as Loader } from '../../assets/spinner-2s.svg'
 
 import './styles.scss';
 

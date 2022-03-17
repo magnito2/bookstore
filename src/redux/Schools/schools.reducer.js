@@ -4,7 +4,9 @@ const INITIAL_STATE ={
     schools: {
         data: []
     }, 
-    school: {}
+    school: {
+        products: []
+    }
 }
 const schoolsReducer = ( state= INITIAL_STATE, action) => {
     switch (action.type) {
@@ -17,6 +19,14 @@ const schoolsReducer = ( state= INITIAL_STATE, action) => {
             return {
                 ...state,
                 school: action.payload
+            }
+        case schoolsTypes.SET_SCHOOL_PRODUCTS:
+            return {
+                ...state,
+                school: {
+                    ...state.school,
+                    products: action.payload
+                }
             }
         default:
             return state;

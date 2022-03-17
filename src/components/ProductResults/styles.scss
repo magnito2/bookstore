@@ -5,17 +5,27 @@
     padding: 0; 
     margin: 2rem 0;
     flex-grow: 2;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    justify-content: center;
+    margin: 0.5rem;
+
+    .productsTitle {
+      background: rgb(255,200,0);
+      text-align: center;
+      padding: 0.5rem;
+    }
 
     .productResults {
         display: flex;
         flex-wrap: wrap;
         padding-bottom: 2rem;
+        background-color: rgb(241, 231, 136);
+        justify-content: space-evenly;
 
         .productCard {
             margin: 2rem;
-            height: 30rem;
-            width: 24rem;
+            height: 25rem;
+            width: 20rem;
             min-width: 10rem;
             box-shadow: 2px 3px 10px 1px #1e555c;
             border-radius: 10px;
@@ -95,6 +105,9 @@
                 height: 100%;
                 background: #e02e6e;
                 color: white;
+                font-family: 'ZCOOL QingKe HuangYou', cursive;
+                padding: 0.5rem;
+                font-size: 1.5rem;
               }
             }
           }

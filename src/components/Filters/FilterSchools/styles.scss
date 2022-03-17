@@ -1,0 +1,31 @@
+.filterSchools {
+    margin: 0;
+    padding: 0;
+
+    .schoolList {
+        list-style-type: none;
+        background: rgba(255, 123, 0, 0.856);
+        .schoolItem {
+            padding: 0.5rem;
+            border-bottom: solid rgb(201, 163, 92) 0.5px;
+            background: rgba(255, 217, 0, 0.856);
+            font-size: 1.5rem;
+
+            .active {
+                background: rgba(255, 217, 0, 0.856);
+            }
+
+            .years {
+                li {
+                    list-style-type: none;
+                    padding: 0.5rem;
+                    border-bottom: solid rgb(201, 163, 92) 0.5px;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+}

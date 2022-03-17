@@ -15,9 +15,8 @@
                 }
                 td {
                     padding: 1rem;
-                    &:nth-child(4){
-                        text-align: center;
-                    }
+                    text-align: center;
+                    
                 }
                 tr {
                     border-bottom: 1px solid #118ab2;
@@ -26,6 +25,14 @@
                     }
                     &:hover {
                         background-color: #ffd166bb;
+                    }
+
+                    td {
+                        .addBooks {
+                            .booksIcon {
+                                width: 2.5rem;
+                            }
+                        }
                     }
                 }
             }

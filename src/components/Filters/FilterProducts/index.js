@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MultilevelMenu } from "react-multilevel-menu";
 import { useDispatch } from 'react-redux';
-import { fetchProductsStart } from "../../redux/Products/products.actions";
+import { fetchProductsStart } from "../../../redux/Products/products.actions";
 
 import './styles.scss';
 
@@ -101,7 +101,6 @@ const FilterProducts = ({}) => {
 
     return (
         <div className="filterProducts">
-            <h3>Filter Books</h3>
             <MultilevelMenu 
                 list={ filterList }
                 configuration={ config }

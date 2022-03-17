@@ -29,3 +29,23 @@ export const setSchool = school => ({
     type: schoolsTypes.SET_SCHOOL,
     payload: school
 });
+
+export const addSchoolProductStart = (schoolID, productID) => ({
+    type: schoolsTypes.ADD_SCHOOL_PRODUCT_START,
+    payload: { schoolID, productID }
+});
+
+export const deleteSchoolProductStart = (schoolID, productID) => ({
+    type: schoolsTypes.DELETE_SCHOOL_PRODUCT_START,
+    payload: { schoolID, productID }
+});
+
+export const fetchSchoolProductsStart = (schoolID) => ({
+    type: schoolsTypes.FETCH_SCHOOL_PRODUCTS_START,
+    payload: schoolID
+});
+
+export const setSchoolProducts = (products) => ({
+    type: schoolsTypes.SET_SCHOOL_PRODUCTS,
+    payload: products
+});

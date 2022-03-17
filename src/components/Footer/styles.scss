@@ -1,8 +1,45 @@
 .footer {
+    .footerNavigation {
+        display: flex;
+        justify-content: space-around;
+        background: rgb(48, 47, 47);
+        color: rgb(222, 236, 248);
+        
+        li { 
+            list-style-type: none;
+            padding: 0.5rem;
+            a {
+                color: inherit;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .social ul {
+            display: flex;
+            width: 12rem;
+
+            li {
+                margin: 0.5rem;
+            }
+        }
+    }
     .wrap {
         display: block;
         max-width: 1450px;
         margin: 0 auto;
         padding: 20px 10px;
+    }
+
+    .socialIcon {
+        width: 3rem;
+        fill: rgb(222, 236, 248);
+
+        &:hover {
+            width: 3.1rem;
+            fill: white;
+        }
     }
 }

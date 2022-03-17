@@ -1,8 +1,8 @@
 import { auth } from "../../firebase/utils";
 import { takeLatest, put, all, call } from "redux-saga/effects";
-import { setSchools, fetchSchoolsStart, setSchool } from "./schools.actions";
+import { setSchools, fetchSchoolsStart, setSchool, setSchoolProducts } from "./schools.actions";
 import schoolsTypes from "./schools.types";
-import { handleAddSchool, handleFetchSchools, handleFetchSchool, handleDeleteSchool } from "./schools.helpers";
+import { handleAddSchool, handleFetchSchools, handleFetchSchool, handleDeleteSchool, handleAddSchoolProduct, handleDeleteSchoolProduct, handleFetchSchoolProducts} from "./schools.helpers";
 
 export function* addSchool({ payload }) {
   try {
@@ -69,11 +69,55 @@ export function* onFetchSchoolStart(){
   yield takeLatest(schoolsTypes.FETCH_SCHOOL_START, fetchSchool)
 }
 
+export function* addSchoolProduct({ payload }){
+  try {
+    const { schoolID, productID } = payload;
+    yield handleAddSchoolProduct(schoolID, productID);
+  }catch(err){
+    console.log(err);
+  }
+}
+
+export function* onAddSchoolProductStart(){
+  yield takeLatest(schoolsTypes.ADD_SCHOOL_PRODUCT_START, addSchoolProduct)
+}
+
+export function* deleteSchoolProduct({ payload }){
+  try {
+    const { schoolID, productID } = payload;
+    yield handleDeleteSchoolProduct(schoolID, productID);
+  }catch(err){
+    console.log(err);
+  }
+}
+
+export function* onDeleteSchoolProductStart(){
+  yield takeLatest(schoolsTypes.DELETE_SCHOOL_PRODUCT_START, deleteSchoolProduct)
+}
+
+export function* fetchSchoolProducts ({ payload }){
+  try{
+    const products = yield handleFetchSchoolProducts(payload);
+    yield put(
+      setSchoolProducts(products)
+    )
+  }catch(err){
+    console.log(err);
+  }
+}
+
+export function* onFetchSchoolProductsStart(){
+  yield takeLatest(schoolsTypes.FETCH_SCHOOL_PRODUCTS_START, fetchSchoolProducts)
+}
+
 export default function* schoolsSagas() {
   yield all([
       call(onAddSchoolStart),
       call(onFetchSchoolsStart),
       call(onDeleteSchoolStart),
-      call(onFetchSchoolStart)
+      call(onFetchSchoolStart),
+      call(onAddSchoolProductStart),
+      call(onDeleteSchoolProductStart),
+      call(onFetchSchoolProductsStart)
     ])
 }

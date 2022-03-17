@@ -34,25 +34,6 @@ const ProductResults = props => {
         navigate(`/search/${nextFilter}`);
     }
 
-    const configFilters = {
-        defaultValue: filterType,
-        options : [
-            {
-                name: 'Show all',
-                value: ''
-            },
-            {
-                name: 'Primary School',
-                value: 'primarySchool'
-            },
-            {
-                name: 'Secondary School',
-                value: 'secondarySchool'
-            }
-        ],
-        handleChange: handleFilter
-    } 
-
     const handleLoadMore = () => {
         dispatch(
             fetchProductsStart({ 
@@ -72,7 +53,7 @@ const ProductResults = props => {
     if(data.length < 1){
         return (
             <div className="products">
-                <FormSelect { ...configFilters } />
+                
                 <p>
                     No Search Results
                 </p>
@@ -82,8 +63,8 @@ const ProductResults = props => {
 
     return (
         <div className="products">
-            <h1> Browse Books </h1>
-            <FormSelect { ...configFilters } />
+            <h1 className="productsTitle"> Browse Books </h1>
+            
             { isLoading ? <LoadingAnim /> : null}
             <div className="productResults">
             {

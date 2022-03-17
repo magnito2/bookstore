@@ -15,7 +15,7 @@ const Product = (product) => {
     productName, 
     productPrice,
     author, 
-    pos 
+    pos
   } = product;
 
     if(!documentID || !productThumbnail || !productName || typeof(productPrice) === 'undefined') return null;
@@ -35,26 +35,26 @@ const Product = (product) => {
 
     return (
       <div className="productCard">
-        <div class="cardImg">
+        <div className="cardImg">
           <Link to={`/product/${documentID}`}>
             <img src={productThumbnail} alt={productName} />
           </Link>
         </div>
-        <div class="cardBody">
-          <div class="cardHeader">
+        <div className="cardBody">
+          <div className="cardHeader">
             <Link to={`/product/${documentID}`}>
-            <h1 class="title">{productName}</h1>
+            <h1 className="title">{productName}</h1>
             </Link>
-            <h2 class="author">{author}</h2>
+            <h2 className="author">{author}</h2>
           </div>
-          <div class="priceWrap">
-            <h2 class="priceTag">
-              <span class="symbol">KES </span>
-              <span class="price">{ productPrice }</span>
+          <div className="priceWrap">
+            <h2 className="priceTag">
+              <span className="symbol">KES </span>
+              <span className="price">{ productPrice }</span>
             </h2>
           </div>
         </div>
-        <div class="actionBtn">
+        <div className="actionBtn">
           <Button 
                 {...configAddToCartButton}
                 onClick={() => handleAddToCart(product)}

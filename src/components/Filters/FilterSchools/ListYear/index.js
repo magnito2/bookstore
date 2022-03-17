@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterProductsStart } from '../../../redux/Products/products.actions';
+import { filterProductsStart } from '../../../../redux/Products/products.actions';
 
 const mapState = ({ productsData}) => ({
     products : productsData.products

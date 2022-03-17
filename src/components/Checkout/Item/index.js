@@ -2,6 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { removeCartItem, addProduct, reduceCartItem } from "../../../redux/Cart/cart.actions";
 
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+
 
 const Item = (product) => {
     const dispatch = useDispatch();
@@ -46,7 +49,7 @@ const Item = (product) => {
                         <span className="cartBtn"
                             onClick={() => handleReduceItem(product)}
                         >
-                            {'<'}
+                            <FontAwesomeIcon icon={faMinus} />
                         </span>
                         <span>
                             {quantity}
@@ -54,7 +57,7 @@ const Item = (product) => {
                         <span className="cartBtn"
                             onClick={() => handleAddProduct(product)}
                         >
-                            {'>'}
+                            <FontAwesomeIcon icon={faPlus} />
                         </span>
                     </td>
                     <td>
@@ -62,7 +65,7 @@ const Item = (product) => {
                     </td>
                     <td align="center">
                         <span className="cartBtn" onClick={()=> handleRemoveCartItem(documentID)}>
-                            X
+                            <FontAwesomeIcon icon={faTrash} />
                         </span>
                     </td>
                 </tr>

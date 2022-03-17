@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons';
+
 import { addProductStart, fetchProductsStart, deleteProductStart } from './../../redux/Products/products.actions';
 import Modal from './../../components/Modal';
 import FormInput from './../../components/forms/FormInput';
@@ -7,6 +10,9 @@ import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
 import LoadMore from './../../components/LoadMore';
 import { CKEditor } from 'ckeditor4-react';
+
+import { fileToDataUri } from '../../Utils';
+
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({
@@ -19,7 +25,8 @@ const Admin = props => {
   const [hideModal, setHideModal] = useState(true);
   const [grade, setGrade] = useState('primary');
   const [productName, setProductName] = useState('');
-  const [productThumbnail, setProductThumbnail] = useState('');
+  const [productThumbnail, setProductThumbnail] = useState(null);
+  const [productImg, setProductImg] = useState(null);
   const [productPrice, setProductPrice] = useState(0);
   const [productDesc, setProductDesc] = useState('');
 
@@ -42,9 +49,10 @@ const Admin = props => {
     setHideModal(true);
     setGrade('primary');
     setProductName('');
-    setProductThumbnail('');
+    setProductThumbnail(null);
     setProductPrice(0);
     setProductDesc('');
+    setProductImg('');
   };
 
   const handleSubmit = e => {
@@ -54,9 +62,9 @@ const Admin = props => {
       addProductStart({
         grade,
         productName,
-        productThumbnail,
         productPrice,
         productDesc,
+        productImg
       })
     );
     resetForm();
@@ -71,6 +79,23 @@ const Admin = props => {
       })
     );
   };
+
+  const handleProductThumbnail = e => {
+    const file = e.target.files[0];
+
+    if(!file) {
+      setProductThumbnail('');
+      setProductImg(null);
+      return;
+    }
+
+    fileToDataUri(file)
+      .then(dataUri => {
+        setProductThumbnail(dataUri)
+      });
+
+    setProductImg(file);
+  }
 
   const configLoadMore = {
     onLoadMoreEvt: handleLoadMore,
@@ -88,7 +113,6 @@ const Admin = props => {
           </li>
         </ul>
       </div>
-
       <Modal {...configModal}>
         <div className="addNewProductForm">
           <form onSubmit={handleSubmit}>
@@ -97,19 +121,30 @@ const Admin = props => {
               Add new product
             </h2>
 
-            <FormSelect
-              label="Grade"
-              options={[{
-                value: "primary",
-                name: "Primary School",
-                key: "l1"
-              }, {
-                value: "secondary",
-                name: "Secondary School",
-                key: "l2"
-              }]}
-              handleChange={e => setGrade(e.target.value)}
-            />
+            <div className='floats'>
+              <div className='floatLeft'>
+                <FormSelect
+                  label="Grade"
+                  options={[{
+                    value: "primary",
+                    name: "Primary School",
+                    key: "l1"
+                  }, {
+                    value: "secondary",
+                    name: "Secondary School",
+                    key: "l2"
+                  }]}
+                  handleChange={e => setGrade(e.target.value)}
+                />
+              </div>
+
+              {productThumbnail && <div className='floatRight'>
+                <img width="150" alt="product" className='thumb' src={productThumbnail} />
+                <div className='close' onClick={e => setProductThumbnail('')}>
+                  <FontAwesomeIcon icon={faXmark} className='xMark' />
+                </div>
+              </div>}
+            </div>
 
             <FormInput
               label="Name"
@@ -119,10 +154,9 @@ const Admin = props => {
             />
 
             <FormInput
-              label="Main image URL"
-              type="url"
-              value={productThumbnail}
-              handleChange={e => setProductThumbnail(e.target.value)}
+              label="Main image"
+              type="file"
+              handleChange={e => handleProductThumbnail(e)}
             />
 
             <FormInput
@@ -182,11 +216,11 @@ const Admin = props => {
                             {productName}
                           </td>
                           <td>
-                            £{productPrice}
+                            KES {productPrice}
                           </td>
                           <td>
                             <Button onClick={() => dispatch(deleteProductStart(documentID))}>
-                              Delete
+                              <span className='deleteIcon'><FontAwesomeIcon icon={faTrash} /></span>
                             </Button>
                           </td>
                         </tr>

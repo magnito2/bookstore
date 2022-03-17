@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSchoolsStart, deleteSchoolStart } from "../../redux/Schools/schools.actions";
 import Modal from "../Modal";
 import BooksModal from "./BooksModal";
+import SchoolResult from "./SchoolResult";
 
 import "./styles.scss";
 
@@ -32,6 +33,10 @@ const SchoolsResults = ({}) => {
     const handleAddBooks = (school) => {
         setActiveSchool(school);
         toggleBooksModal();
+    }
+
+    const handleDeleteSchool = (schoolID) => {
+        dispatch(deleteSchoolStart(schoolID))
     }
 
     const configBooksModal = {
@@ -68,17 +73,12 @@ const SchoolsResults = ({}) => {
                     <tbody>
                     {
                         primarySchools.map((school, idx) => (
-                            <tr>
-                                <td>{idx + 1}</td>
-                                <td>{school.schoolName}</td>
-                                <td></td>
-                                <td>
-                                    <span className="addBooks" onClick={() => handleAddBooks(school)}>+</span>
-                                </td>
-                                <td>
-                                    <span className="delete" onClick={() => dispatch(deleteSchoolStart(school.documentID))}>X</span>
-                                </td>
-                            </tr>
+                        <SchoolResult 
+                            school = {school}
+                            idx = {idx}
+                            handleAddBooks = {handleAddBooks}
+                            handleDeleteSchool = {handleDeleteSchool}
+                        />
                         ))
                     }
                     </tbody>
@@ -101,17 +101,12 @@ const SchoolsResults = ({}) => {
                 <tbody>
                 {
                     secondarySchools.map((school, idx) => (
-                        <tr>
-                            <td>{idx + 1}</td>
-                            <td>{school.schoolName}</td>
-                            <td></td>
-                            <td>
-                                <span className="addBooks" onClick={() => handleAddBooks(school)}>+</span>
-                            </td>
-                            <td>
-                                <span className="delete" onClick={() => dispatch(deleteSchoolStart(school.documentID))}>X</span>
-                            </td>
-                        </tr>
+                        <SchoolResult 
+                            school = {school}
+                            idx = {idx}
+                            handleAddBooks = {handleAddBooks}
+                            handleDeleteSchool = {handleDeleteSchool}
+                        />
                     ))
                 }
                 </tbody>

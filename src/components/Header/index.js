@@ -7,7 +7,8 @@ import "./styles.scss";
 
 import Logo from "../../assets/Logo.png";
 import {ReactComponent as CloseMenu} from "../../assets/x.svg";
-import {ReactComponent as MenuIcon} from "../../assets/menu.svg"
+import {ReactComponent as MenuIcon} from "../../assets/menu.svg";
+import Search from "../Search";
 
 const mapState = (state) => ({
   currentUser: state.user.currentUser,
@@ -47,6 +48,10 @@ const Header = (props) => {
                 <Link to="/cart">
                   Your Cart ({ totalNumCartItems })
                 </Link>
+              </li>
+
+              <li className="option">
+                <Search />
               </li>
             </div>
             <div className="accountActions">

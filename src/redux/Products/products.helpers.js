@@ -1,15 +1,45 @@
 import { collection, doc, addDoc, getDoc, getDocs, deleteDoc, orderBy, query, where, limit, startAfter } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firestore } from '../../firebase/utils';
 
 export const handleAddProduct = product => {
     return new Promise((resolve, reject) => {
-        addDoc(collection(firestore, 'products'), product)
-        .then(() => {
-            resolve();
-        })
-        .catch(err => {
-            reject(err);
-        })
+
+        const { productImg } = product;
+        if(productImg){
+
+            delete product.productImg;
+            
+            const storage = getStorage();
+            const storageRef = ref(storage, '/images/product.jpg');
+
+            uploadBytes(storageRef, productImg)
+            .then((snapshot) => {
+                getDownloadURL(storageRef).then((url) => {
+                  product.productThumbnail = url;
+                  console.log(`image has been uploaded, url ${url}`);
+                })
+                .then(() => {
+                    console.log(`Adding product to database, url ${product.productThumbnail}`)
+                    addDoc(collection(firestore, "products"), product)
+                      .then(() => {
+                        resolve();
+                      })
+                      .catch((err) => {
+                        reject(err);
+                      });
+                  });
+            })
+            
+        } else {
+            addDoc(collection(firestore, 'products'), product)
+            .then(() => {
+                resolve();
+            })
+            .catch(err => {
+                reject(err);
+            })
+        }
     })
 }
 

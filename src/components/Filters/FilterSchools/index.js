@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSchoolsStart } from "../../redux/Schools/schools.actions";
-import { fetchProductsStart } from "../../redux/Products/products.actions";
+import { fetchSchoolsStart } from "../../../redux/Schools/schools.actions";
+import { fetchProductsStart } from "../../../redux/Products/products.actions";
 
 import ListYear from "./ListYear";
 
@@ -16,31 +16,43 @@ const FilterSchools = ({}) => {
     const [clicked, setClicked] = useState('');
 
     const toggleClicked = (schoolID) => {
-        clicked ? setClicked('') : setClicked(schoolID);
+        clicked === schoolID ? setClicked('') : setClicked(schoolID);
     }
 
     useEffect(() => {
         dispatch(
-            fetchSchoolsStart()
+          fetchSchoolsStart()
         );
     }, []);
 
+    useEffect(() => {
+      clicked ? (
+        dispatch(
+          fetchProductsStart(
+              {
+                filters: 
+                  {
+                    schoolID: clicked,
+                  },
+              }
+            )
+          )
+      ) : (
+        dispatch(
+          fetchProductsStart()
+        )
+      );
+    }, [clicked]);
+
     return (
-        <div>
-            <ul>
+        <div className="filterSchools">
+            <ul className="schoolList">
                 {
                     schools.map((school,idx) => {
                         return (
-                          <li
+                          <li className="schoolItem"
                             key={idx}
                             onClick={() => {
-                              dispatch(
-                                fetchProductsStart({
-                                  filters: {
-                                    schoolID: school.documentID,
-                                  },
-                                })
-                              );
                               toggleClicked(school.documentID);
                             }}
                           >
