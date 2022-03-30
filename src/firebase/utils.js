@@ -1,6 +1,7 @@
 import {initializeApp} from 'firebase/app';
 import {getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
+import { getFunctions, connectFunctionsEmulator, httpsCallable } from 'firebase/functions';
 
 import { firebaseConfig } from "./config";
 
@@ -8,6 +9,13 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth();
 export const firestore = getFirestore(app);
+
+//Firebase functions
+export const functions = getFunctions(app, 'us-central1');
+export const prepareOrder = httpsCallable(functions, 'prepareOrder');
+export const updateOrder = httpsCallable(functions, 'updateOrder');
+
+//connectFunctionsEmulator(functions, "localhost", 5001);
 
 export const GoogleProvider = new GoogleAuthProvider();
 GoogleProvider.setCustomParameters({ prompt: 'select_account' })

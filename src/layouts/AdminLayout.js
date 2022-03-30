@@ -27,6 +27,31 @@ const AdminLayout = props => {
                 </Link>
               </li>
               <li>
+                <Link to="/admin/orders">
+                  Orders
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/products">
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/customers">
+                  Customers
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/invoices">
+                  Invoices
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/chats">
+                  Chats
+                </Link>
+              </li>
+              <li>
                 <Link to="/admin/schools">
                   Schools
                 </Link>

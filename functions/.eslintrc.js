@@ -11,4 +11,8 @@ module.exports = {
   rules: {
     quotes: ["error", "double"],
   },
+  parserOptions: {
+    parser: "babel-eslint",
+    ecmaVersion: 8,
+  },
 };

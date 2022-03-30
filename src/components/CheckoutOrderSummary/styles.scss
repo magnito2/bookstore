@@ -1,0 +1,113 @@
+.orderSummary {
+    background: #3a7aa7;
+
+    .title {
+        padding: 0.5rem 1rem 0 0.5rem;
+        h1 {
+            color: white;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .itemList {
+        padding: 0.5rem 1rem 0 1.5rem;
+        
+        hr {
+            margin: 0.5rem 0 0;
+        }
+
+        .subTitle {
+            
+            h2 {
+                color: white;
+                font-size: 2rem;
+                margin: 0;
+
+                .shoppingIcon {
+                    float: right;
+                }
+            }
+        }
+
+        .items {
+            ul {
+                padding: 0.5rem 0;
+                margin: 0;
+                li {
+                    list-style-type: none;
+                    padding: 0.5rem 0;
+                    margin: 0;
+                    font-size: 1.5rem;
+                    color: white;
+
+                    .qty {
+                        padding-left: 2rem;
+                    }
+                    .cost {
+                        float: right;
+                        color: black;
+                        background: white;
+                        padding: 0.2rem;
+                        border-radius: 3px;
+                    }
+                }
+            }
+
+            .cartTotal {
+                color: white;
+                p {
+                    text-align: right;
+                    margin: 0;
+                    padding: 1rem 0 0.5rem;
+
+                    .cost {
+                        padding-left: 2rem;
+                    }
+                }
+            }
+        }
+
+        .shippingCost {
+            h2 {
+                font-size: 2rem;
+                color: white;
+                padding: 0.5rem 0;
+                .cost {
+                    float: right;
+                }
+            }
+        }
+
+        .totalCost {
+            h2 {
+                padding: 1.5rem 0;
+                font-size: 2rem;
+                color: white;
+                text-align: center;
+
+                .cost {
+                    padding-left: 2rem;
+                }
+            }
+        }
+    }
+
+    .formRow {
+        margin: 0;
+        padding: 0.5rem 1.5rem 1.5rem;
+
+        .btn {
+            background: #708090;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+    
+            &.active {
+                background: #ffc800;
+                color: black;
+            }
+        }
+    }
+}

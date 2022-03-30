@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "ckeditor4-react": "^2.1.0",
     "firebase": "^9.6.2",
+    "firebase-functions": "^3.19.0",
     "font-awesome": "^4.7.0",
     "ngrok": "^4.3.0",
     "node-sass": "^7.0.1",

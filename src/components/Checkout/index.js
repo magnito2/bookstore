@@ -82,7 +82,9 @@ const Checkout = ({}) => {
                                         </Button>
                                     </td>
                                     <td>
-                                        <Button>
+                                        <Button
+                                          onClick = {() => navigate('/checkout')}
+                                        >
                                             Checkout
                                         </Button>
                                     </td>

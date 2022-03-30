@@ -1,0 +1,49 @@
+.shipping {
+    background: #3a7aa7;
+
+    .title {
+        padding: 1rem 0.5rem 0 0.5rem;
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .form {
+        display: flex;
+        justify-content: center;
+
+        .formRow {
+            margin: 1rem 0;
+            padding: 0.5rem 1.5rem;
+
+            .formSelect {
+                background: white;
+                width: 100%;
+                margin: 0 auto;
+                padding: 1rem;
+            }
+
+            .formDisplay {
+                background: white;
+                width: 100%;
+                margin: 0 auto;
+                padding: 1rem;
+
+                .shippingCost {
+                    color: #ffc800;
+                    float: right;
+                }
+            }
+
+            .btn {
+                background: #ffc800;
+                color: black;
+                font-size: 2.5rem;
+                font-weight: 700;
+            }
+        }
+    }
+}

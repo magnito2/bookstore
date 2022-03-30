@@ -24,8 +24,18 @@ import Admin from "./pages/Admin";
 import Search from "./pages/Search";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
+
+//admin pages
 import AdminSchools from "./pages/Admin/Schools";
 import AdminSubjects from "./pages/Admin/Subjects";
+import AdminProducts from "./pages/Admin/Products";
+import AdminOrders from "./pages/Admin/Orders";
+import AdminCustomers from "./pages/Admin/Customers";
+import AdminChats from "./pages/Admin/Chats";
+import AdminInvoices from "./pages/Admin/Invoices";
+
+import Checkout from "./pages/Checkout";
+import OrderComplete from "./pages/OrderComplete";
 
 //components
 import AdminToolbar from "./components/AdminToolbar";
@@ -81,6 +91,22 @@ const App = (props) => {
           element={
             <MainLayout>
               <Cart />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <MainLayout>
+              <Checkout />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/orderComplete"
+          element={
+            <MainLayout>
+              <OrderComplete />
             </MainLayout>
           }
         />
@@ -145,6 +171,56 @@ const App = (props) => {
             <WithAdminAuth>
               <AdminLayout>
                 <AdminSubjects />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminProducts />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminOrders />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/customers"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminCustomers />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/invoices"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminInvoices />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/chats"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminChats />
               </AdminLayout>
             </WithAdminAuth>
           }
