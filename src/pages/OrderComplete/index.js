@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import UpdateOrder from "../../components/UpdateOrder";
+import UpdateOrder from "../../components/CompleteOrder";
 
 
 const OrderComplete = ({}) => {

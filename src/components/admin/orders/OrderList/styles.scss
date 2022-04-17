@@ -1,17 +1,45 @@
 .orderList {
     .orderTable {
+        overflow-x: auto;
         table {
             width: 90%;
+            min-width: 500px;
             text-align: left;
+            font-weight: 400;
+            border-collapse: collapse;
             tr {
-                padding: 1rem 0;
-            }
-            thead {
-            }
-            tbody {
-                tr {
-                    td {
-                        
+                cursor: pointer;
+                &:nth-child(even) {
+                    background-color: #f2f2f2;
+                    border-radius: 5px;
+                }
+                th, td {
+                    padding: 1.5rem 0.5rem;
+                }
+
+                th {
+                    background: #ffc800;
+                }
+                td {
+                    &.id {
+                        color: red;
+                    }
+                    .status {
+                        color: antiquewhite;
+                        padding: 0.75rem;
+                        border-radius: 5px;
+                        &.Pending {
+                            background: gray;
+                        }
+                        &.Completed {
+                            background: green;
+                        }
+                        &.Cancelled {
+                            background: red;
+                        }
+                        &.Processing {
+                            background: #ffc800;
+                        }
                     }
                 }
             }

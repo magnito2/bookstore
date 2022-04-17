@@ -33,6 +33,7 @@ import AdminOrders from "./pages/Admin/Orders";
 import AdminCustomers from "./pages/Admin/Customers";
 import AdminChats from "./pages/Admin/Chats";
 import AdminInvoices from "./pages/Admin/Invoices";
+import AdminOrderDetails from "./pages/Admin/Orders/OrderDetails";
 
 import Checkout from "./pages/Checkout";
 import OrderComplete from "./pages/OrderComplete";
@@ -191,6 +192,16 @@ const App = (props) => {
             <WithAdminAuth>
               <AdminLayout>
                 <AdminOrders />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/orders/:orderID"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminOrderDetails />
               </AdminLayout>
             </WithAdminAuth>
           }

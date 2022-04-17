@@ -14,13 +14,15 @@
 
     .form {
         display: flex;
+        flex-direction: column;
 
         .formRow {
-            margin: 0rem 0;
+            margin: 0;
             padding: 0.5rem 1.5rem;
 
             &:last-child {
                 margin-top: 2rem;
+                display: flex;
             }
         }
 
@@ -33,6 +35,18 @@
             &.active {
                 background: #ffc800;
                 color: black;
+                padding-right: 1rem;
+            }
+        }
+        .spinner {
+            background: #ffc800;
+            width: 8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .spin {
+                width: 80%;
+                fill: black;
             }
         }
     }

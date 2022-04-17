@@ -5,9 +5,9 @@ import { prepareOrderStart } from "../../redux/Orders/orders.actions";
 import {  selectTotalCost } from "../../redux/Cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 
-import FormSelect from "../forms/FormSelect";
 import FormInput from "../forms/FormInput";
 import Button from "../forms/Button";
+import SpinnerAnim from "../SpinnerAnim";
 
 import './styles.scss';
 
@@ -16,14 +16,15 @@ const mapState = createStructuredSelector({
 })
 
 const mapState2 = (state) => ({
-  ordersData: state.ordersData
+  ordersData: state.ordersData,
+  cartData: state.cartData
 });
 
 const CheckoutCustomerDetails = ({}) => {
     const dispatch = useDispatch();
     const { totalCost } = useSelector(mapState);
-    const { ordersData } = useSelector(mapState2);
-    const { order } = ordersData;
+    const { ordersData, cartData } = useSelector(mapState2);
+    const { order, showLoader } = ordersData;
      const [name, setName ] = useState('');
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
@@ -32,13 +33,27 @@ const CheckoutCustomerDetails = ({}) => {
     const prepareOrder = (e) => {
         e.preventDefault();
         const cbk = window.location.origin.toString() + '/orderComplete';
+        const items = cartData.cartItems.map(item => (
+          {
+            documentID: item.documentID,
+            productDesc : item.productDesc,
+            productName : item.productName,
+            productThumbnail : item.productThumbnail,
+            productPrice: item.productPrice,
+            quantity: item.quantity,
+            grade: item.grade,
+            subject: item.subject,
+            year: item.year
+          }
+        ))
         dispatch(
             prepareOrderStart({
                 name,
                 email,
                 mobile,
                 total: totalCost,
-                cbk
+                cbk,
+                items
             })
         );
     }
@@ -67,15 +82,21 @@ const CheckoutCustomerDetails = ({}) => {
               handleChange={(e) => setMobile(e.target.value)}
             />
             <div className="formRow">
-              <Button className="btn active" onClick={(e) => prepareOrder(e)}>CHECKOUT</Button>
+              {showLoader && <SpinnerAnim className="spin"/>}
+              <Button className="btn active" onClick={(e) => prepareOrder(e)}>
+                CHECKOUT
+              </Button>
+              {showLoader && <SpinnerAnim className="spin"/>}
             </div>
           </form> 
           :
           <form action="https://payments.ipayafrica.com/v3/ke">
+            <div className="formRow">
             { Object.keys(order).map(key => {
                 return <input type='hidden' name={key} value={order[key]} />
               })
             }
+            </div>
             <div className="formRow">
               <Button type="submit" className="btn active">PAY</Button>
             </div>

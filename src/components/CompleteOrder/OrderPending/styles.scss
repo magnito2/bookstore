@@ -1,0 +1,17 @@
+.orderPending {
+    display: flex;
+    justify-content: center;
+
+    .svg {
+        .spinner {
+            background: #3a7aa7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 10rem;
+            .spin {
+                width: 7rem;
+            }
+        }
+    }
+}

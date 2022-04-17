@@ -1,0 +1,77 @@
+.orderDetails {
+    background: #f5f4fe;
+    padding: 1.5rem;
+
+    .wrap {
+        display: flex;
+        justify-content: space-around;
+    }
+    .infoCard {
+        background: white;
+        border-radius: 15px;
+        width: 75%;
+        .topRow {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            .orderID {
+                color: red;
+            }
+            .status {
+                color: antiquewhite;
+                padding: 0.75rem;
+                border-radius: 5px;
+                &.Pending {
+                    background: gray;
+                }
+                &.Completed {
+                    background: green;
+                }
+                &.Cancelled {
+                    background: red;
+                }
+                &.Processing {
+                    background: #ffc800;
+                }
+            }
+        }
+        .customerDetails {
+            display: flex;
+            justify-content: space-between;
+            background: none;
+            padding: 1rem;
+        }
+        .address {
+            display: flex;
+            justify-content: space-between;
+            .delivery, .billing {
+                width: 50%;
+                outline: 1px solid gray;
+                padding: 2rem;
+                margin: 1rem;
+                border-radius: 10px;
+                .title {
+                    display: flex;
+                    justify-content: space-between;
+
+                    h3 {
+                        padding: 0;
+                        margin: 0;
+                    }
+                    .edit {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+    .priceWrap {
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem; 
+            width: 90%;
+            margin: 2rem;
+        }
+    }
+}
