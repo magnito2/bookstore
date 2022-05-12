@@ -15,7 +15,26 @@ export const handlePrepareOrder = (orderParams) => {
 
 export const handleUpdateOrder = (params) => {
     return new Promise((resolve, reject) => {
-        reject('not implemented');
+        const { id } = params;
+        const docRef = doc(firestore, 'orders', id);
+        getDoc(docRef)
+        .then(snapshot => {
+            if(snapshot.exists()){
+                updateDoc(docRef, {...params}).then(() => {
+                    getDoc(docRef)
+                    .then(snapshot => {
+                        resolve({
+                            ...snapshot.data(),
+                            documentID: snapshot.id
+                        })
+                    })
+                })
+            } else {
+                throw new Error(`Order of id ${id} not found`);
+            }
+        }).catch(err => {
+            reject(err)
+        })
     })
 }
 
@@ -55,8 +74,7 @@ export const handleFetchOrder = orderID => {
             if(snapshot.exists()){
                 resolve({
                     ...snapshot.data(),
-                    documentID: snapshot.id,
-                    items: []
+                    documentID: snapshot.id
                 });
             }
         })
@@ -79,7 +97,7 @@ export const handleCompleteOrder = order => {
                         reject('Amount Less than invoice')
                     }
                     updateDoc(docRef, {
-                        status: 'Success'
+                        status: 'Pending'
                     }).then(() => {
                         resolve({
                             ...data,

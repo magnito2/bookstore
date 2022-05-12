@@ -124,3 +124,27 @@ html {
       }
     }
   }
+
+  .status {
+    color: antiquewhite;
+    padding: 0.75rem;
+    border-radius: 5px;
+    &.Pending {
+        background: gray;
+    }
+    &.Completed {
+        background: green;
+    }
+    &.Cancelled {
+        background: red;
+    }
+    &.Processing {
+        background: #ff4800;
+    }
+    &.Shipped {
+        background: rgb(12, 12, 12);
+    }
+    &.Refunded {
+        background: orange;
+    }
+}

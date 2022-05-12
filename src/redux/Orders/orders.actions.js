@@ -37,4 +37,14 @@ export const setOrder = order => ({
 export const completeOrderStart = order => ({
     type: ordersTypes.COMPLETE_ORDER_START,
     payload: order
+});
+
+export const updateOrderStart = order => ({
+    type: ordersTypes.UPDATE_ORDER_START, 
+    payload: order
+});
+
+export const setError = error => ({
+    type: ordersTypes.SET_ERROR,
+    payload: error
 })

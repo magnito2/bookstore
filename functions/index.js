@@ -26,7 +26,16 @@ exports.prepareOrder = functions.https.onCall(async (data) => {
     const curr = process.env.CURR;
     const cst = process.env.CST;
     const invoice = admin.firestore().collection("rand").doc().id;
-    const {name, total, mobile, email, cbk, items} = data;
+    const {
+      name,
+      total,
+      mobile,
+      email,
+      cbk,
+      items,
+      shipping,
+      cartTotalCost,
+    } = data;
 
     const orderRequest = await admin.firestore().collection("orders").add({
       name,
@@ -34,6 +43,9 @@ exports.prepareOrder = functions.https.onCall(async (data) => {
       mobile,
       email,
       items,
+      cartTotalCost,
+      invoice,
+      shipping,
     });
 
     functions.logger.log(`We have added this doc ${orderRequest.id}`);

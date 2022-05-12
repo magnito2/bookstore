@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { prepareOrderStart } from "../../redux/Orders/orders.actions";
 
-import {  selectTotalCost } from "../../redux/Cart/cart.selectors";
+import {  selectCartTotal, selectTotalCost, selectShippingCost } from "../../redux/Cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 
 import FormInput from "../forms/FormInput";
@@ -12,7 +12,9 @@ import SpinnerAnim from "../SpinnerAnim";
 import './styles.scss';
 
 const mapState = createStructuredSelector({
-    totalCost : selectTotalCost
+    totalCost : selectTotalCost,
+    cartTotalCost : selectCartTotal,
+    shippingCost : selectShippingCost
 })
 
 const mapState2 = (state) => ({
@@ -22,13 +24,12 @@ const mapState2 = (state) => ({
 
 const CheckoutCustomerDetails = ({}) => {
     const dispatch = useDispatch();
-    const { totalCost } = useSelector(mapState);
+    const { totalCost, cartTotalCost, shippingCost } = useSelector(mapState);
     const { ordersData, cartData } = useSelector(mapState2);
     const { order, showLoader } = ordersData;
      const [name, setName ] = useState('');
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
-    const [orderHash, setOrderHash] = useState('');
 
     const prepareOrder = (e) => {
         e.preventDefault();
@@ -53,13 +54,12 @@ const CheckoutCustomerDetails = ({}) => {
                 mobile,
                 total: totalCost,
                 cbk,
-                items
+                items,
+                shippingCost,
+                cartTotalCost
             })
         );
     }
-    useEffect(() => {
-      console.log('order has changed');
-    }, [order]);
 
     return (
       <div className="customerDetails checkOutItem">
@@ -92,8 +92,8 @@ const CheckoutCustomerDetails = ({}) => {
           :
           <form action="https://payments.ipayafrica.com/v3/ke">
             <div className="formRow">
-            { Object.keys(order).map(key => {
-                return <input type='hidden' name={key} value={order[key]} />
+            { Object.keys(order).map((key, idx) => {
+                return <input type='hidden' key={idx} name={key} value={order[key]} />
               })
             }
             </div>

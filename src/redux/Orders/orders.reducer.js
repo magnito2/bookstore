@@ -21,6 +21,7 @@ const ordersReducer = ( state = INITIAL_STATE, action ) => {
             return {
                 ...state,
                 order: action.payload,
+                orders : [...state.orders.filter(order => order.documentID !== action.payload.documentID), action.payload],
                 showLoader: false
             }
         case ordersTypes.PREPARE_ORDER_START:
@@ -28,7 +29,11 @@ const ordersReducer = ( state = INITIAL_STATE, action ) => {
                 ...state,
                 showLoader: true
             }
-
+        case ordersTypes.SET_ERROR:
+            return {
+                ...state,
+                showLoader: false
+            }
         default:
             return state;
     }

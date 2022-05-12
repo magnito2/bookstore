@@ -2,7 +2,7 @@ import { takeLatest, put, all, call } from "redux-saga/effects";
 import ordersTypes from "./orders.types";
 import { handlePrepareOrder, handleUpdateOrder, handleFetchOrders, handleFetchOrder, handleCompleteOrder} from "./orders.helpers";
 
-import { setOrders, setOrder } from "./orders.actions";
+import { setOrders, setOrder, setError } from "./orders.actions";
 
 export function* prepareOrder({payload}){
     try {
@@ -13,6 +13,9 @@ export function* prepareOrder({payload}){
         );
     } catch(err){
         console.log(`Error preparing order ${JSON.stringify(err)}`);
+        yield put(
+            setError(err)
+        )
     }
 }
 
@@ -83,12 +86,28 @@ export function* onCompleteOrderStart() {
     yield takeLatest(ordersTypes.COMPLETE_ORDER_START, completeOrder)
 }
 
+export function* updateOrder({ payload }){
+    try {
+        const order = yield handleUpdateOrder(payload);
+        yield put(
+            setOrder(order)
+        )
+    } catch (err){
+        console.log(err);
+    }
+}
+
+export function* onUpdateOrderStart() {
+    yield takeLatest(ordersTypes.UPDATE_ORDER_START, updateOrder)
+}
+
 export default function* ordersSagas() {
     yield all([
         call(onPrepareOrderStart),
         call(onUpdatePaymentStatusStart),
         call(onFetchOrdersStart),
         call(onFetchOrderStart),
-        call(onCompleteOrderStart)
+        call(onCompleteOrderStart),
+        call(onUpdateOrderStart)
       ])
   }

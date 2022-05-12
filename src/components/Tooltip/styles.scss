@@ -1,0 +1,115 @@
+$background-color : #808080;
+$foreground-color : #f5f4fe;
+
+.tooltip {
+    position:relative; /* making the .tooltip span a container for the tooltip text */
+    border-bottom:1px dashed $background-color; /* little indicater to indicate it's hoverable */
+
+    &:before {
+        content: attr(data-text); /* here's the magic */
+        position:absolute;
+        
+        /* basic styles */
+        width:200px;
+        padding:10px;
+        border-radius:10px;
+        background:$background-color;
+        color: $foreground-color;
+        text-align:center;
+    }
+    
+    &:after {
+        content: "";
+        position:absolute;
+       
+        /* the arrow */
+        border:10px solid #f5f4fe;
+
+    }
+
+    &:before, &:after {
+        opacity:0;
+        transition:.6s opacity;  ; /* hide by default */
+    }
+    
+    &:hover:before, &:hover:after {
+        opacity:1;
+    }
+
+    &.right{
+        &:before {
+            /* move to left */
+            left:100%;
+            margin-left:15px; /* and add a small left margin */
+        }
+
+        &:after {
+            border-color: transparent $background-color transparent transparent;
+            /* position tooltip correctly */
+            left:100%;
+            margin-left:-5px;
+        }
+    }
+
+    &.left{
+        &:before {
+            /* move to right */
+            right:100%;
+            margin-right:15px; /* and add a small right margin */
+        } 
+        
+        &:after {
+            border-color: transparent transparent transparent $background-color ;
+            /* position tooltip correctly */
+            right:100%;
+            margin-right:-5px;
+        }
+    }
+
+    &.left, &.right {
+        &:before, &:after {
+            /* vertically center */
+            top:50%;
+            transform:translateY(-50%);
+        }
+    }
+
+    &.top{
+        &:before {
+            /* move to bottom */
+            bottom: 100%;
+            margin-bottom: 15px;/* and add a small bottom margin */
+        }
+
+        &:after {
+            border-color: $background-color transparent transparent transparent ;
+            /* position tooltip correctly */
+            bottom:100%;
+            margin-bottom:-5px;
+        }
+    }
+
+    &.bottom{
+        &:before {
+            /* move to bottom */
+            top: 100%;
+            margin-top: 15px;/* and add a small bottom margin */
+        }
+
+        &:after {
+            border-color: transparent transparent $background-color transparent ;
+            /* position tooltip correctly */
+            top:100%;
+            margin-top:-5px;
+        }
+    }
+
+    &.top, &.bottom {
+        &:before, &:after {
+            /* horizontally center */
+            right:50%;
+            transform:translateX(50%);
+        }
+    }
+
+  }

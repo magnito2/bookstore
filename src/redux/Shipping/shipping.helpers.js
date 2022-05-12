@@ -1,7 +1,9 @@
-import { collection, getDocs } from 'firebase/firestore';
-import { firestore, prepareOrder } from '../../firebase/utils';
+import { collection, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { firestore, } from '../../firebase/utils';
+import { mergeDeep} from '../../Utils';
 
-export const handleFetchShipping = () => {
+export const handleFetchShippingZones = () => {
+
     return new Promise((resolve, reject) => {
         let ref = collection(firestore, 'shipping_zones');
         
@@ -10,15 +12,24 @@ export const handleFetchShipping = () => {
             
             const data = [
                 ...snapshot.docs.map(doc => {
-                    let cost = ''
-                    try {
-                        cost = doc.data().delivery.pickup_station.small
-                    } catch(err){
-                        console.log(err);
-                    }
+                    const defaultZone = {
+                        towns: [],
+                        delivery: {
+                            door: {
+                                small: null,
+                                medium: null,
+                                large: null
+                            },
+                            pickup_station: {
+                                small: null,
+                                medium: null,
+                                large: null
+                            }
+                        }
+                    };
+                    const merged = mergeDeep(defaultZone, {...doc.data()})
                     return {
-                        ...doc.data(),
-                        cost,
+                        ...merged,
                         documentID: doc.id
                     }
                 })
@@ -30,3 +41,18 @@ export const handleFetchShipping = () => {
         })
     })
 };
+
+export const handleUpdateShippingZone = zone => {
+    return new Promise((resolve, reject) => {
+        const zoneRef = doc(firestore, 'shipping_zones', zone.documentID);
+        updateDoc(zoneRef, {
+            [zone.field]: zone.isArray ? (zone.removeValue ? arrayRemove(zone.value) : arrayUnion(zone.value)) : zone.value
+        })
+        .then(resp => {
+            resolve(resp);
+        })
+        .catch(err => {
+            reject(err)
+        });
+    })
+}

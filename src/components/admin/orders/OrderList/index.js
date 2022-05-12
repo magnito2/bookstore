@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchOrdersStart } from "../../../../redux/Orders/orders.actions";
 
+import Tooltip from "../../../Tooltip";
+import ordersTypes from "../../../../redux/Orders/orders.types";
+
 import "./styles.scss";
+import ChangeStatus from "../ChangeStatus";
 
 const mapState = state => ({
     orders: state.ordersData.orders
@@ -34,19 +38,23 @@ export const OrderList = ({}) => {
                             <th>NAME</th>
                             <th>DATE</th>
                             <th>TOTAL</th>
-                            <th>STATUS</th>
+                            <th><span>STATUS</span></th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map(order => (
-                        <tr onClick={() => navigate(`/admin/orders/${order.documentID}`)}>
+                        {orders.map((order, idx) => (
+                        <tr key={idx}>
                             <td></td>
-                            <td className="id">{order.documentID}</td>
+                            <td className="id" onClick={() => navigate(`/admin/orders/${order.documentID}`)}>{order.documentID}</td>
                             <td>{order.name}</td>
                             <td>{order.createdAt}</td>
                             <td>{order.total}</td>
-                            <td><span className={`status ${order.status || 'Pending'}`}>{order.status || 'Pending'}</span></td>
+                            <td>
+                                
+                            <ChangeStatus order={order} />
+                                
+                            </td>
                             <td></td>
                         </tr>
                         ))}

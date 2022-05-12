@@ -34,6 +34,7 @@ import AdminCustomers from "./pages/Admin/Customers";
 import AdminChats from "./pages/Admin/Chats";
 import AdminInvoices from "./pages/Admin/Invoices";
 import AdminOrderDetails from "./pages/Admin/Orders/OrderDetails";
+import AdminShippingZones from "./pages/Admin/ShippingZones";
 
 import Checkout from "./pages/Checkout";
 import OrderComplete from "./pages/OrderComplete";
@@ -232,6 +233,16 @@ const App = (props) => {
             <WithAdminAuth>
               <AdminLayout>
                 <AdminChats />
+              </AdminLayout>
+            </WithAdminAuth>
+          }
+        />
+        <Route
+          path="/admin/shipping"
+          element={
+            <WithAdminAuth>
+              <AdminLayout>
+                <AdminShippingZones />
               </AdminLayout>
             </WithAdminAuth>
           }

@@ -1,0 +1,34 @@
+.orderItems {
+    width: 100%;
+    background: white;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+    border-radius: 1rem;
+
+    thead {
+        tr {
+            th {
+                font-weight: 400;
+                padding: 1rem 0;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            outline: 1px solid gray;
+            border-radius: 1rem;
+            td {
+                text-align: center;
+                padding: 0.5rem;
+                &.thumb {
+                    img {
+                        width: 5rem;
+                    }
+                }
+            }
+        }
+    }
+}

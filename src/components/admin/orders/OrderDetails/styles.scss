@@ -2,6 +2,10 @@
     background: #f5f4fe;
     padding: 1.5rem;
 
+    p {
+        padding: 0.5rem;
+    }
+
     .wrap {
         display: flex;
         justify-content: space-around;
@@ -73,5 +77,10 @@
             width: 90%;
             margin: 2rem;
         }
+    }
+    .itemsCard {
+        width: 70%;
+        margin: 2rem 0rem;
+        padding: 1rem;
     }
 }

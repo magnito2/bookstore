@@ -47,11 +47,6 @@ const AdminLayout = props => {
                 </Link>
               </li>
               <li>
-                <Link to="/admin/chats">
-                  Chats
-                </Link>
-              </li>
-              <li>
                 <Link to="/admin/schools">
                   Schools
                 </Link>
@@ -59,6 +54,11 @@ const AdminLayout = props => {
               <li>
                 <Link to="/admin/subjects">
                   Subjects
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin/shipping">
+                  Shipping Zones
                 </Link>
               </li>
               <li>

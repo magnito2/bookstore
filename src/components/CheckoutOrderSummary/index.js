@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faBasketShopping } from '@fortawesome/free-solid-svg-icons';
-import { selectCartItems, selectCartTotal, selectTotalCost, selectShippingCost } from "../../redux/Cart/cart.selectors";
+import { selectCartItems, selectCartTotal, selectTotalCost, selectShippingCost} from "../../redux/Cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 import Button from "../forms/Button";
 

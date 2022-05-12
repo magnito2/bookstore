@@ -1,0 +1,91 @@
+.shippingZones {
+    .wrapper {
+        display: flex;
+        justify-content: space-around;
+
+        ul {
+            li {
+                list-style-type: none;
+                padding: 1rem;
+                margin: 0.2rem;
+                background: #ffff;
+
+            }
+        }
+
+        .zoneNames, .towns, .cost {
+            background: #e5e5e5;
+            width: 100%;
+            outline: 1px solid gray;
+            margin: 0.5rem;
+            padding: 0.5rem;
+        }
+
+        .zoneNames {
+            ul {
+                li {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                    &.active {
+                        outline: 2px solid #ffc800;
+                    }
+                }
+            }
+        }
+
+        .towns {
+            position: relative;
+            .add {
+                position: absolute;
+                bottom: 0;
+                width: 90%
+            }
+            .town {
+                .icon {
+                    display: none;
+                }
+                &:hover {
+                    .icon {
+                        display: inline;
+                        float: right;
+                        color: red;
+                    }
+                }
+            }
+        }
+
+        .cost {
+            .delivery {
+                outline: 1px solid gray;
+                padding: 0.5rem;
+                margin: 2rem 0;
+                .sizes {
+                    display: flex;
+                    .size {
+                        padding: 1rem;
+                        outline: 1px solid gray;
+                        margin: 0.25rem;
+                        background: white;
+                        width: 100%;
+                        .price {
+                            .icon {
+                                display: none;
+                            }
+                        }
+
+                        &:hover {
+                            .price {
+                                .icon {
+                                    display: inline;
+                                    float: right;
+                                    color: #ffc800;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

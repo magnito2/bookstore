@@ -4,7 +4,7 @@ import './styles.scss';
 
 const OrderItems = ({items}) => {
     return (
-        <table>
+        <table className="orderItems">
             <thead>
                 <tr>
                     <th>PHOTO</th>
@@ -18,11 +18,11 @@ const OrderItems = ({items}) => {
                 {
                     items.map((item, index) => 
                     (<tr>
-                        <td><img src={item.img} alt='book' /></td>
-                        <td>{item.name}</td>
+                        <td className="thumb"><img src={item.productThumbnail} alt='book' /></td>
+                        <td>{item.productName}</td>
                         <td>{item.quantity}</td>
-                        <td>{item.price}</td>
-                        <td>{item.total}</td>
+                        <td>{item.productPrice}</td>
+                        <td>{item.productPrice * item.quantity}</td>
                     </tr>)
                     )
                 }

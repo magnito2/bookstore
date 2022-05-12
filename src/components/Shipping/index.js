@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchShippingStart, setShippingCost } from "../../redux/Shipping/shipping.actions";
-import { selectCartItems, selectCartTotal } from "../../redux/Cart/cart.selectors";
+import { fetchShippingZonesStart, setShippingAddress } from "../../redux/Shipping/shipping.actions";
+import { selectCartTotal } from "../../redux/Cart/cart.selectors";
+import { selectShippingCost } from "../../redux/Cart/cart.selectors";
 import { createStructuredSelector } from "reselect";
 
 import FormSelect from "../forms/FormSelect";
-import FormInput from "../forms/FormInput";
-import Button from "../forms/Button";
 
 import './styles.scss';
 
@@ -15,45 +14,35 @@ const mapState = (state) => ({
 });
 
 const mapState2 = createStructuredSelector({
-    cartItems: selectCartItems,
-    total : selectCartTotal
+    total : selectCartTotal,
+    shippingCost : selectShippingCost
 })
 
 const Shipping = ({}) => {
 
     const dispatch = useDispatch();
     const { shippingData } = useSelector(mapState);
-    const { cartItems, total } = useSelector(mapState2);
+    const { total, shippingCost } = useSelector(mapState2);
 
-    const [shipping, setShipping ] = useState([]);
-    const [shippingOptions, setShippingOptions] = useState([]);
+    const [deliveryOption, setDeliveryOption] = useState('pickup_station');
     const [selectedZone, setSelectedZone] = useState(undefined);
 
     useEffect(() => {
         dispatch(
-            fetchShippingStart()
+            fetchShippingZonesStart()
             );
     }, []);
 
     useEffect(() => {
-        const shipArr = [];
-        shippingData.map((shipStn, idx) => {
-            const shipTo = {
-                name: shipStn.documentID.replace('_', ' '),
-                value: idx,
-                cost: shipStn.cost || ''
-            }
-            shipArr.push(shipTo);
-        })
-        setShipping(shipArr);
-    }, [shippingData]);
-
-    const handleChangeCity = (event) => {
-        const selectedZoneIdx = event.target.value;
-        const selectedZone = shipping[selectedZoneIdx];
-        setSelectedZone(selectedZone);
-        dispatch(setShippingCost(+selectedZone.cost))
-    }
+        if(selectedZone){
+            const shippingAddress = shippingData.find(dat => dat.documentID === selectedZone)
+            dispatch(setShippingAddress({
+                ...shippingAddress,
+                deliveryOption,
+                delivery: shippingAddress.delivery[deliveryOption]
+            }))
+        }
+    }, [deliveryOption, selectedZone])
 
     return (
         <div className="shipping checkOutItem">
@@ -65,36 +54,41 @@ const Shipping = ({}) => {
                     <FormSelect 
                         options={ [
                                 {
-                                    name: 'City/Town',
+                                    name: 'Choose City/Town',
                                     value: '',
                                     index: -1
                                 },
-                            ...shipping
+                            ...shippingData.map((dat, idx) => ({
+                                name: dat.documentID.replace('_', ' '),
+                                value: dat.documentID,
+                                index: idx
+                            }))
                             ] 
                         }
-                        handleChange={(e) => handleChangeCity(e)}
+                        handleChange={(e) => setSelectedZone(e.target.value)}
                     />
                     <FormSelect 
                         
                         options={
                             [
                                 {
-                                    name: 'Available Shipping Options',
-                                    value: ''
+                                    name: 'Pick Up Station',
+                                    value: 'pickup_station'
                                 },
                                 {
-                                    name: 'Jumia Shipping',
-                                    value: 'jumia'
+                                    name: 'Door Delivery',
+                                    value: 'door'
                                 }
                             ]
                         }
+                        handleChange={(e) => setDeliveryOption(e.target.value)}
                     
                     />
                     <div className="formRow">
                         <p className="formDisplay">Estimated time taken</p>
                     </div>
                     <div className="formRow">
-                        <p className="formDisplay">Cost of shipping  <span className="shippingCost">{ selectedZone && selectedZone.cost ? `${selectedZone.cost}/=` : ''}</span></p>
+                        <p className="formDisplay">Cost of shipping  <span className="shippingCost">{ shippingCost }</span></p>
                     </div>
                     <div className="formRow">
                         <p className="formDisplay">New Subtotal <span className="shippingCost">{ selectedZone && selectedZone.cost ? `${Number(total) + Number(selectedZone.cost)}/=` : ''}</span></p>

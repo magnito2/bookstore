@@ -96,6 +96,7 @@ const OrderDetails = ({}) => {
             </div>
             </div>
             <div className="itemsCard">
+              <h3 className="title">ORDER ITEMS</h3>
               <OrderItems items={order.items} />
             </div>
           </>

@@ -27,12 +27,22 @@ export const selectCartTotal = createSelector(
         )
 );
 
-export const selectShippingCost = createSelector(
+export const selectShippingAddress = createSelector(
     [selectShippingData],
-    shippingData => shippingData.cost
+    shippingData => shippingData.address
 )
+
+export const selectShippingCost = createSelector(
+    [selectShippingAddress, selectCartItemsCount],
+    (shippingAddress, itemsCount)  => {
+        if(shippingAddress == undefined || shippingAddress.delivery == undefined) return 0
+        if(itemsCount <= 5) return shippingAddress.delivery.small
+        if(itemsCount <=10) return shippingAddress.delivery.medium
+        return shippingAddress.delivery.large
+    }
+);
 
 export const selectTotalCost = createSelector(
     [selectCartTotal, selectShippingCost],
-    (cartTotal, shippingCost) => cartTotal + shippingCost
+    (cartTotal, shippingCost) => +cartTotal + +shippingCost
 )
